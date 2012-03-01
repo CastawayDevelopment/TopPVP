@@ -1,0 +1,23 @@
+name: TopPVP
+main: MoNeYBaGS_.TopPVP.TopPVP
+version: 0.2
+
+commands:
+   kills:
+      description: View your kills.
+      usage: /kills
+   deaths:
+      description: View your deaths.
+      usage: /deaths
+   kdr:
+      description: View your Kill/Death ratio.
+      usage: /kdr
+   resetkills:
+      description: Reset a player's kills.
+      usage: /resetkills <player>
+   resetdeaths:
+      description: Reset a player's deaths.
+      usage: /resetdeaths <player>
+   pvphelp:
+      description: View the commands for TopPVP.
+      usage: /pvphelp
