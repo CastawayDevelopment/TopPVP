@@ -3,6 +3,10 @@ package MoNeYBaGS_.TopPVP;
 import java.util.logging.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import MoNeYBaGS_.Commands.TopPVPCommandListener;
+import MoNeYBaGS_.Listeners.TopPVPEntityListener;
+import MoNeYBaGS_.Listeners.TopPVPPlayerListener;
+
 public class TopPVP extends JavaPlugin {
 	
 	private final TopPVPCommandListener cmd = new TopPVPCommandListener(this);
