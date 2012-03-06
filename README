@@ -1,1 +1,9 @@
-This is the PVP plugin for Bukkit, TopPVP.
+Version - 0.4
+		  CraftBukkit R6
+		  1.2 Compatible
+
+TODO:
+	- Permissions Integration
+	- Leaderboards
+	- /setkills /setdeaths
+	- More admin commands
