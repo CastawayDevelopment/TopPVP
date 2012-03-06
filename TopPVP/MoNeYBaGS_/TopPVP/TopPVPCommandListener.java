@@ -133,7 +133,13 @@ public class TopPVPCommandListener implements CommandExecutor {
 				else
 				{
 					if(player.hasPermission("toppvp.resetdeaths"))
-						sender.sendMessage(ChatColor.RED + "Not enough arguments");
+					{
+						sender.sendMessage(ChatColor.GREEN + "Your Deaths have been reset to '0'");
+						plugin.getConfig().set("players." + player.getName() + ".Deaths", 0);
+						plugin.saveConfig();
+						plugin.reloadConfig();
+						return true;
+					}
 					else
 						sender.sendMessage(ChatColor.RED + "You do not have permission");
 				}
@@ -169,11 +175,17 @@ public class TopPVPCommandListener implements CommandExecutor {
 				else
 				{
 					if(player.hasPermission("toppvp.resetkills"))
-						sender.sendMessage(ChatColor.RED + "Not enough arguments");
+					{
+						sender.sendMessage(ChatColor.GREEN + "Your Kills have been reset to '0'");
+						plugin.getConfig().set("players." + player.getName() + ".Kills", 0);
+						plugin.saveConfig();
+						plugin.reloadConfig();
+						return true;
+					}
 					else
-						sender.sendMessage(ChatColor.RED + "You do not have permission");
+						sender.sendMessage(ChatColor.RED + "You do not have permission to do this");
+					return true;
 				}
-				return true;
 			}
 			else
 			{
