@@ -1,5 +1,12 @@
 package MoNeYBaGS_.Listeners;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,8 +17,8 @@ import MoNeYBaGS_.TopPVP.TopPVP;
 
 public class TopPVPPlayerListener implements Listener {
 	
-	public static TopPVP plugin;
-	public Player player;
+	private static TopPVP plugin;
+	private Player player;
 	
 	public TopPVPPlayerListener(TopPVP instance) {
 		plugin = instance;
@@ -29,9 +36,21 @@ public class TopPVPPlayerListener implements Listener {
 			plugin.log.info(plugin.pvp + plugin.cre + player.getName());
 			plugin.getConfig().set("players." + player.getName() + ".Kills", 0);
 			plugin.getConfig().set("players." + player.getName() + ".Deaths", 0);
-			plugin.getConfig().set("number." + (plugin.getConfig().getInt("number.players")+1), 1);
 			plugin.saveConfig();
 			plugin.reloadConfig();
+			try {
+				BufferedReader fin = new BufferedReader(new FileReader("plugins/TopPVP/players.conf"));
+				String temp = fin.readLine();
+				fin.close();
+				BufferedWriter fout = new BufferedWriter(new FileWriter("plugins/TopPVP/players.conf"));
+				fout.append(player.getName() + ";" + temp);
+				fout.close();
+			} catch (FileNotFoundException e) {
+				plugin.log.getLevel();
+				plugin.log.info(e.getMessage());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

@@ -1,20 +1,27 @@
 package MoNeYBaGS_.Commands;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import MoNeYBaGS_.Leaderboards.Leaderboards;
+import MoNeYBaGS_.Leaderboards.trimLeaderboards;
 import MoNeYBaGS_.TopPVP.TopPVP;
 
 public class TopPVPCommandListener implements CommandExecutor {
 
-	public TopPVP plugin;
+	private TopPVP plugin;
+	private Leaderboards leaderboards;
 
-	public TopPVPCommandListener(TopPVP plugin)
+	public TopPVPCommandListener(TopPVP _plugin, Leaderboards _leaderboards)
 	{
-		this.plugin = plugin;
+		this.plugin = _plugin;
+		this.leaderboards = _leaderboards;
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args)
@@ -80,8 +87,8 @@ public class TopPVPCommandListener implements CommandExecutor {
 				return true;
 			}
 		}
-		
-		
+
+
 		else if(cmd.getName().equalsIgnoreCase("kdr"))
 		{
 			if(player != null)
@@ -197,19 +204,27 @@ public class TopPVPCommandListener implements CommandExecutor {
 		}
 		else if(cmd.getName().equalsIgnoreCase("pvphelp"))
 		{
-			sender.sendMessage(ChatColor.RED + "*****************TopPVP Commands*****************");
+			sender.sendMessage(ChatColor.RED + "******************TopPVP Commands*******************");
 			sender.sendMessage(ChatColor.GOLD + "/kills - View your kills.");
 			sender.sendMessage(ChatColor.GOLD + "/deaths - View your deaths.");
 			sender.sendMessage(ChatColor.GOLD + "/kdr - View your Kill/Death ratio.");
 			sender.sendMessage(ChatColor.GOLD + "/resetkills <player> - Reset a player's kills.");
 			sender.sendMessage(ChatColor.GOLD + "/resetdeaths <player> - Reset a player's deaths.");
+			sender.sendMessage(ChatColor.GOLD + "/leadkills - View Kills Leaderboard.");
 			sender.sendMessage(ChatColor.GOLD + "/pvphelp - Shows this dialogue.");
-			sender.sendMessage(ChatColor.RED + "*************************************************");
+			sender.sendMessage(ChatColor.RED + "****************************************************");
 			return true;
 		}
 		else if(cmd.getName().equalsIgnoreCase("leadkills"))
 		{
-			sender.sendMessage(ChatColor.RED + "LEADERBOARDS ARE COMING SOON!");
+			Map<String, Integer> tree = leaderboards.getLeaderboards();
+			trimLeaderboards trim = new trimLeaderboards();
+			ArrayList<String> top = trim.getTrimmed(tree.toString());
+			plugin.log.info(tree.toString());
+			player.sendMessage(ChatColor.RED + "**************PVP Leaderboard**************");
+			for(int i = 0; i < top.size(); i++)
+				player.sendMessage(ChatColor.GOLD + Integer.toString(i+1) + ". " + top.get(i));
+			player.sendMessage(ChatColor.RED + "*********************************************");			
 			return true;
 		}
 		else if(cmd.getName().equalsIgnoreCase("leaddeaths"))
@@ -219,9 +234,9 @@ public class TopPVPCommandListener implements CommandExecutor {
 		}
 		return false;
 	}
-	
+
 	public int GCD(int a, int b){
-		   if (b==0) return a;
-		   return GCD(b,a%b);
+		if (b==0) return a;
+		return GCD(b,a%b);
 	}
 }

@@ -1,6 +1,6 @@
 name: TopPVP
 main: MoNeYBaGS_.TopPVP.TopPVP
-version: 0.2
+version: 0.5
 
 commands:
    kills:
@@ -21,3 +21,6 @@ commands:
    pvphelp:
       description: View the commands for TopPVP.
       usage: /pvphelp
+   leadkills:
+      description: View the Kills leaderboard.
+      usage: /leadkills

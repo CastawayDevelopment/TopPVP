@@ -13,9 +13,8 @@ import MoNeYBaGS_.TopPVP.TopPVP;
 
 public class TopPVPEntityListener implements Listener {
 	
-	public static TopPVP plugin;
-	public TopPVPPlayerListener top;
-	public Player tempplayer;
+	private static TopPVP plugin;
+	private Player tempplayer;
 
 	public TopPVPEntityListener(TopPVP instance) {
 		plugin = instance;
