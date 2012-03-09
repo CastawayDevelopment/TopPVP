@@ -1,9 +1,12 @@
-Version - 0.4
-		  CraftBukkit R6
-		  1.2 Compatible
+Version - 0.6
+		  CraftBukkit R7
+		  1.2.3 Compatible
 
 TODO:
 	- Permissions Integration
-	- Leaderboards
 	- /setkills /setdeaths
 	- More admin commands
+	- Finish Configuration files
+
+ISSUES:
+	- Config files not extracting properly
