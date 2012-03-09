@@ -2,7 +2,7 @@ package MoNeYBaGS_.Leaderboards;
 
 import java.util.Map;
 
-import MoNeYBaGS_.TopPVP.TopPVP;
+import MoNeYBaGS_.TopPVP;
 
 public class Leaderboards {
 	

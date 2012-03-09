@@ -11,7 +11,7 @@ import java.util.TreeMap;
 
 import org.bukkit.entity.Player;
 
-import MoNeYBaGS_.TopPVP.TopPVP;
+import MoNeYBaGS_.TopPVP;
 
 public class Players {
 
@@ -46,7 +46,7 @@ public class Players {
 		Map<String, Integer> unsorted = new HashMap<String, Integer>();
 		for(int i = 0; i < player.size(); i++)
 		{
-			unsorted.put(player.get(i), plugin.getConfig().getInt("players." + player.get(i).toString() + ".Kills"));
+			unsorted.put(player.get(i), plugin.getPlayersConfig().getInt("players." + player.get(i).toString() + ".Kills"));
 		}
 		KillsComparator compare = new KillsComparator(unsorted);
 		@SuppressWarnings({ "unchecked", "rawtypes" })

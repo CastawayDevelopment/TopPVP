@@ -9,7 +9,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 
-import MoNeYBaGS_.TopPVP.TopPVP;
+import MoNeYBaGS_.TopPVP;
+import MoNeYBaGS_.Configurations.Nodes;
 
 public class TopPVPEntityListener implements Listener {
 	
@@ -44,32 +45,32 @@ public class TopPVPEntityListener implements Listener {
 	public void onEntityDeath(EntityDeathEvent event)
 	{
 		Entity entity = event.getEntity();
+		plugin.reloadConfig();
 		if(entity instanceof Player)
 		{
 			Player victim = (Player) entity;
 			plugin.log.info(plugin.pvp + "Player died: " + victim.getName() );
+			plugin.reloadPlayersConfig();
+			plugin.getPlayersConfig().set("players." + victim.getName() + ".Deaths", 
+					plugin.getPlayersConfig().getInt("players." + victim.getName() + ".Deaths", 0) + 1);
+			plugin.savePlayersConfig();
 			
-			plugin.getConfig().set("players." + victim.getName() + ".Deaths", 
-					plugin.getConfig().getInt("players." + victim.getName() + ".Deaths", 0) + 1);
-			plugin.saveConfig();
-			plugin.reloadConfig();
-			
-			victim.sendMessage(ChatColor.GREEN + "You have died " + 
-					plugin.getConfig().getInt("players." + victim.getName()
-					+ ".Deaths", 1) + " times in total.");
+			victim.sendMessage(ChatColor.GREEN + Nodes.Paths.DeathsReturn1.getString() + 
+					plugin.getPlayersConfig().getInt("players." + victim.getName()
+					+ ".Deaths", 1) + Nodes.Paths.DeathsReturn2.getString());
 			Player actualplayer = ((Player) entity).getKiller();
 			if(actualplayer == tempplayer)
 			{
 				if(!(actualplayer == null))
 				{
-					plugin.getConfig().set("players." + actualplayer.getName() + ".Kills", 
-							plugin.getConfig().getInt("players." + actualplayer.getName() + ".Kills", 0) + 1);
+					plugin.reloadPlayersConfig();
+					plugin.getPlayersConfig().set("players." + actualplayer.getName() + ".Kills", 
+							plugin.getPlayersConfig().getInt("players." + actualplayer.getName() + ".Kills", 0) + 1);
 					
-					plugin.saveConfig();
-					plugin.reloadConfig();
+					plugin.savePlayersConfig();
 					
-					actualplayer.sendMessage(ChatColor.RED + "You have killed " + (plugin.getConfig().getInt("players." + actualplayer.getName()
-							+ ".Kills")) + " different times in total.");	
+					actualplayer.sendMessage(ChatColor.RED + Nodes.Paths.KillsReturn1.getString() + (plugin.getPlayersConfig().getInt("players." + actualplayer.getName()
+							+ ".Kills")) + Nodes.Paths.KillsReturn2.getString());	
 					actualplayer = null;
 				}
 			}

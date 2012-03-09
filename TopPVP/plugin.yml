@@ -1,6 +1,6 @@
 name: TopPVP
-main: MoNeYBaGS_.TopPVP.TopPVP
-version: 0.5
+main: MoNeYBaGS_.TopPVP
+version: 0.6
 
 commands:
    kills:

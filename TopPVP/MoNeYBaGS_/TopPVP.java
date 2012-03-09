@@ -1,57 +1,61 @@
-package MoNeYBaGS_.TopPVP;
+package MoNeYBaGS_;
 
-import java.io.File;
 import java.util.logging.Logger;
+
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import MoNeYBaGS_.Commands.TopPVPCommandListener;
+import MoNeYBaGS_.Configurations.Files;
+import MoNeYBaGS_.Configurations.PlayersConfiguration;
 import MoNeYBaGS_.Leaderboards.Leaderboards;
 import MoNeYBaGS_.Listeners.TopPVPEntityListener;
 import MoNeYBaGS_.Listeners.TopPVPPlayerListener;
 
-public class TopPVP extends JavaPlugin {
+public class TopPVP extends JavaPlugin 
+{
 
 	private Leaderboards lead;
 	private TopPVPCommandListener cmd;
-	
+	private PlayersConfiguration config;
+
 	//Strings
 	public String pvp = "[TopPVP]: ";
 	public String cre = "Creating player ";
-	
+
 	//bukkit variables
 	public Logger log = Logger.getLogger("Minecraft");
 
-	public void onDisable() {
+	public void onDisable() 
+	{
 		log.info(pvp + " TopPVP Disabled!");
-		saveConfig();
 	}
 
-	public void onEnable() {
+	public void onEnable() 
+	{
+		new Files();
+		config = new PlayersConfiguration(this);
+		config.getConfig().options().copyHeader(true);
+		config.getConfig();
 		getConfig();
 		log.info(pvp + " TopPVP Enabled!");
-		if(!(getConfig().getInt("info.Version") == 5))
+		if(!(getConfig().getInt("Version") == 5))
 		{
-			log.info("This is your first time using TopPVP v0.5. Your previous configuration files for" +
+			saveConfig();
+			Files.extract("config.yml", "players.yml", "players.conf", "config_Template.yml");
+			log.info("This is your first time using TopPVP v0.6. Your previous configuration files for" +
 					" TopPVP have been deleted if you already had TopPVP. Nothing else has been affected." +
 					" This means every players kills and deaths have been deleted that was linked with TopPVP. It was " +
 					" needed to be done in order for the" +
-					" leaderboards to work properly. Thank you, and visit the BukkitDev often.");
-			File config = new File("plugins/TopPVP/config.yml");
-			if(config.exists())
-			{
-				config.delete();
-			}
-			getConfig().set("info.Version", 5);
-			saveConfig();
+					" configuration files to work properly. Thank you, and visit the BukkitDev often.");
 			reloadConfig();
 		}
-		
-		new Files();
+		getConfig().set("Version", 6);
 		lead = new Leaderboards(this);
 		cmd = new TopPVPCommandListener(this, lead);
 		new TopPVPPlayerListener(this);
 		new TopPVPEntityListener(this);
-		
+
 		getCommand("kills").setExecutor(cmd);
 		getCommand("deaths").setExecutor(cmd);
 		getCommand("kdr").setExecutor(cmd);
@@ -61,5 +65,19 @@ public class TopPVP extends JavaPlugin {
 		getCommand("pvphelp").setExecutor(cmd);
 	}
 
+	public void reloadPlayersConfig()
+	{
+		config.reloadPlayersConfig();
+	}
 
+	public FileConfiguration getPlayersConfig()
+	{
+		return config.getConfig();
+	}
+	
+	public void savePlayersConfig() 
+	{
+	    config.savePlayersConfig();
+	}
+	
 }

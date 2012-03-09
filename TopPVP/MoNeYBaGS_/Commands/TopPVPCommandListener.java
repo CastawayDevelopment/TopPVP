@@ -9,9 +9,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import MoNeYBaGS_.TopPVP;
+import MoNeYBaGS_.Configurations.Nodes;
 import MoNeYBaGS_.Leaderboards.Leaderboards;
 import MoNeYBaGS_.Leaderboards.trimLeaderboards;
-import MoNeYBaGS_.TopPVP.TopPVP;
 
 public class TopPVPCommandListener implements CommandExecutor {
 
@@ -26,6 +27,7 @@ public class TopPVPCommandListener implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args)
 	{
+		plugin.reloadConfig();
 		Player player = null;
 		if(sender instanceof Player)
 		{
@@ -35,22 +37,23 @@ public class TopPVPCommandListener implements CommandExecutor {
 		{
 			if(player != null)
 			{
-				if(plugin.getConfig().getInt("players." + 
+				if(plugin.getPlayersConfig().getInt("players." + 
 						sender.getName() + ".Kills", 0) == 0)
 				{
-					sender.sendMessage(ChatColor.RED + "You have not killed anyone at all...");
+					sender.sendMessage(ChatColor.GREEN + Nodes.Paths.KillsReturnNone.getString());
 					return true;
 				}
-				else if(plugin.getConfig().getInt("players." + 
+				else if(plugin.getPlayersConfig().getInt("players." + 
 						sender.getName() + ".Kills", 0) == 1)
 				{
-					sender.sendMessage("You have killed 1 time.");
+					sender.sendMessage(Nodes.Paths.KillsReturnOnce.getString());
 					return true;
 				}
 				else
 				{
-					sender.sendMessage(ChatColor.RED + "You have killed " + plugin.getConfig().getInt("players." + 
-							sender.getName() + ".Kills", 0) + " times.");
+					sender.sendMessage(ChatColor.RED + Nodes.Paths.KillsReturn1.getString() + 
+							plugin.getPlayersConfig().getInt("players." + 
+							sender.getName() + ".Kills", 0) + Nodes.Paths.KillsReturn2.getString());
 					return true;
 				}
 			}
@@ -64,20 +67,21 @@ public class TopPVPCommandListener implements CommandExecutor {
 		{
 			if(player != null)
 			{
-				if(plugin.getConfig().getInt("players." +
+				if(plugin.getPlayersConfig().getInt("players." +
 						sender.getName() + ".Deaths", 0) == 0)
 				{
-					sender.sendMessage("You have never died!");
+					sender.sendMessage(ChatColor.RED + Nodes.Paths.DeathsReturnNone.getString());
 				}
-				else if(plugin.getConfig().getInt("players." +
+				else if(plugin.getPlayersConfig().getInt("players." +
 						sender.getName() + ".Deaths", 0) == 1)
 				{
-					sender.sendMessage("You have died once.");
+					sender.sendMessage(ChatColor.RED + Nodes.Paths.DeathsReturnOnce.getString());
 				}
 				else
 				{
-					sender.sendMessage(ChatColor.GREEN + "You have died " + plugin.getConfig().getInt("players." +
-							sender.getName() + ".Deaths", 0) + " times.");
+					sender.sendMessage(ChatColor.RED + Nodes.Paths.DeathsReturn1.getString() + 
+							plugin.getPlayersConfig().getInt("players." +
+							sender.getName() + ".Deaths", 0) + Nodes.Paths.DeathsReturn2.getString());
 				}
 				return true;
 			}
@@ -93,9 +97,9 @@ public class TopPVPCommandListener implements CommandExecutor {
 		{
 			if(player != null)
 			{
-				int deaths = plugin.getConfig().getInt("players." + 
+				int deaths = plugin.getPlayersConfig().getInt("players." + 
 						player.getName() + ".Deaths");
-				int kills = plugin.getConfig().getInt("players." + 
+				int kills = plugin.getPlayersConfig().getInt("players." + 
 						player.getName() + ".Kills");
 				int gcd = GCD(kills, deaths);
 				deaths = deaths/gcd;
@@ -127,10 +131,10 @@ public class TopPVPCommandListener implements CommandExecutor {
 				{
 					if(player.hasPermission("toppvp.resetdeaths"))
 					{
-						sender.sendMessage(ChatColor.GREEN + args[0] + "'s Deaths have been reset to '0'");
-						plugin.getConfig().set("players." + args[0] + ".Deaths", 0);
-						plugin.saveConfig();
-						plugin.reloadConfig();
+						sender.sendMessage(ChatColor.GREEN + args[0] + Nodes.Paths.ResetDeaths.getString());
+						plugin.reloadPlayersConfig();
+						plugin.getPlayersConfig().set("players." + args[0] + ".Deaths", 0);
+						plugin.savePlayersConfig();
 						return true;
 					}
 					else
@@ -143,10 +147,10 @@ public class TopPVPCommandListener implements CommandExecutor {
 				{
 					if(player.hasPermission("toppvp.resetdeaths"))
 					{
-						sender.sendMessage(ChatColor.GREEN + "Your Deaths have been reset to '0'");
-						plugin.getConfig().set("players." + player.getName() + ".Deaths", 0);
-						plugin.saveConfig();
-						plugin.reloadConfig();
+						sender.sendMessage(ChatColor.GREEN + Nodes.Paths.ResetDeathsYou.getString());
+						plugin.reloadPlayersConfig();
+						plugin.getPlayersConfig().set("players." + player.getName() + ".Deaths", 0);
+						plugin.savePlayersConfig();
 						return true;
 					}
 					else
@@ -169,10 +173,10 @@ public class TopPVPCommandListener implements CommandExecutor {
 				{
 					if(player.hasPermission("toppvp.resetkills"))
 					{
-						sender.sendMessage(ChatColor.GREEN + args[0] + "'s Kills have been reset to '0'");
-						plugin.getConfig().set("players." + args[0] + ".Kills", 0);
-						plugin.saveConfig();
-						plugin.reloadConfig();
+						sender.sendMessage(ChatColor.GREEN + args[0] + Nodes.Paths.ResetKills.getString());
+						plugin.reloadPlayersConfig();
+						plugin.getPlayersConfig().set("players." + args[0] + ".Kills", 0);
+						plugin.savePlayersConfig();
 						return true;
 					}
 					else
@@ -185,10 +189,10 @@ public class TopPVPCommandListener implements CommandExecutor {
 				{
 					if(player.hasPermission("toppvp.resetkills"))
 					{
-						sender.sendMessage(ChatColor.GREEN + "Your Kills have been reset to '0'");
-						plugin.getConfig().set("players." + player.getName() + ".Kills", 0);
-						plugin.saveConfig();
-						plugin.reloadConfig();
+						sender.sendMessage(ChatColor.GREEN + Nodes.Paths.ResetKillsYou.getString());
+						plugin.reloadPlayersConfig();
+						plugin.getPlayersConfig().set("players." + player.getName() + ".Kills", 0);
+						plugin.savePlayersConfig();
 						return true;
 					}
 					else
@@ -220,7 +224,6 @@ public class TopPVPCommandListener implements CommandExecutor {
 			Map<String, Integer> tree = leaderboards.getLeaderboards();
 			trimLeaderboards trim = new trimLeaderboards();
 			ArrayList<String> top = trim.getTrimmed(tree.toString());
-			plugin.log.info(tree.toString());
 			player.sendMessage(ChatColor.RED + "**************PVP Leaderboard**************");
 			for(int i = 0; i < top.size(); i++)
 				player.sendMessage(ChatColor.GOLD + Integer.toString(i+1) + ". " + top.get(i));
@@ -229,7 +232,7 @@ public class TopPVPCommandListener implements CommandExecutor {
 		}
 		else if(cmd.getName().equalsIgnoreCase("leaddeaths"))
 		{
-			sender.sendMessage("LEADERBOARDS ARE COMING SOON!");
+			sender.sendMessage("DEATH LEADERBOARDS ARE COMING SOON!");
 			return true;
 		}
 		return false;
