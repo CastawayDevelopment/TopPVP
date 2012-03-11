@@ -2,6 +2,7 @@ package com.MoNeYBaGS_;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,8 +52,24 @@ public class TopPVP extends JavaPlugin
 		if(!(getConfig().getInt("Version") == 6))
 		{
 			saveConfig(); 
-			String[] names = {"config.yml", "config_Template.yml", "players.conf", "players.yml"};
-			for(String name: names)
+			ArrayList<String> files = new ArrayList<String>();
+			if(!new File("plugins/TopPVP/players.conf").exists())
+			{
+				files.add("players.conf");
+			}
+			if(new File("plugins/TopPVP/config.yml").exists())
+			{
+				File config = new File("plugins/TopPVP/config.yml");
+				config.renameTo(new File("plugins/TopPVP/players.yml"));
+				files.add("config.yml");
+			}
+			else
+			{
+				files.add("players.yml");
+				files.add("config.yml");
+			}
+			files.add("config_Template.yml");
+			for(String name: files)
 			{
 				File configs = new File("plugins/TopPVP/" + name);
 				InputStream jarURL = getClass().getResourceAsStream("/resources/" + name);
@@ -62,12 +79,7 @@ public class TopPVP extends JavaPlugin
 					Logger.getLogger(TopPVP.class.getName()).log(Level.SEVERE, null, ex);
 				}
 			}
-			JOptionPane.showMessageDialog(null, "TopPVP has been updated to v0.6, and in this update, many configuration\n" +
-					"files have been made. This means your current " +
-					"configuration files\nhave been deleted. Sorry for the inconvienience\n" +
-					"Read the template for more information on how to edit/configure the config files.\n\n" +
-					"DO NOT EDIT THE \"VERSION\" NODE IN THE CONFIG FILES OR EVERYTHING\n" +
-					"WILL BE DELETED!!!", "TopPVP 0.6", JOptionPane.PLAIN_MESSAGE);
+			this.getPlayersConfig().set("info.", null);
 		}
 		reloadConfig();
 		getConfig().set("Version", 6);

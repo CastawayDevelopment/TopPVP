@@ -54,7 +54,7 @@ public class TopPVPCommandListener implements CommandExecutor {
 				{
 					sender.sendMessage(ChatColor.RED + Nodes.Paths.KillsReturn1.getString() + 
 							plugin.getPlayersConfig().getInt("players." + 
-							sender.getName() + ".Kills", 0) + Nodes.Paths.KillsReturn2.getString());
+									sender.getName() + ".Kills", 0) + Nodes.Paths.KillsReturn2.getString());
 					return true;
 				}
 			}
@@ -82,7 +82,7 @@ public class TopPVPCommandListener implements CommandExecutor {
 				{
 					sender.sendMessage(ChatColor.RED + Nodes.Paths.DeathsReturn1.getString() + 
 							plugin.getPlayersConfig().getInt("players." +
-							sender.getName() + ".Deaths", 0) + Nodes.Paths.DeathsReturn2.getString());
+									sender.getName() + ".Deaths", 0) + Nodes.Paths.DeathsReturn2.getString());
 				}
 				return true;
 			}
@@ -222,13 +222,20 @@ public class TopPVPCommandListener implements CommandExecutor {
 		}
 		else if(cmd.getName().equalsIgnoreCase("leadkills"))
 		{
-			Map<String, Integer> tree = leaderboards.getLeaderboards();
-			trimLeaderboards trim = new trimLeaderboards();
-			ArrayList<String> top = trim.getTrimmed(tree.toString());
-			player.sendMessage(ChatColor.RED + "**************PVP Leaderboard**************");
-			for(int i = 0; i < top.size(); i++)
-				player.sendMessage(ChatColor.GOLD + Integer.toString(i+1) + ". " + top.get(i));
-			player.sendMessage(ChatColor.RED + "*********************************************");			
+			if(Nodes.Paths.AllowLeaderboards.getBool() == true)
+			{
+				Map<String, Integer> tree = leaderboards.getLeaderboards();
+				trimLeaderboards trim = new trimLeaderboards();
+				ArrayList<String> top = trim.getTrimmed(tree.toString());
+
+				player.sendMessage(ChatColor.RED + "**************PVP Leaderboard**************");
+				for(int i = 0; i < top.size() && i < Nodes.Paths.LeaderboardsAmount.getInt(); i++)
+					player.sendMessage(ChatColor.GOLD + Integer.toString(i+1) + ". " + top.get(i));
+				player.sendMessage(ChatColor.RED + "*********************************************");			
+				return true;
+			}
+			else
+				player.sendMessage(Nodes.Paths.LeaderboardsFalse.getString());
 			return true;
 		}
 		else if(cmd.getName().equalsIgnoreCase("leaddeaths"))

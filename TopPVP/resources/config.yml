@@ -17,9 +17,11 @@ Messages:
         After Number: " times"
         One Time: "You have killed once."
         None: "You have never killed anyone..."
+    Leaderboards:
+        Deny: "The Leaderboards are disabled."
     Reset:
         Deaths:
-            #If the player reset own deaths
+            #If the playder reset own deaths
             Sender: "Your deaths have been reset."
             #IF the player reste another player's deaths
             Another Player: "'s deaths have been reest."

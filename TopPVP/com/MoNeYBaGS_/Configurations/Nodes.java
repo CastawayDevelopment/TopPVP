@@ -25,6 +25,8 @@ public class Nodes
 		ResetKillsYou("Messages.Reset.Kills.Sender", "Your kills have been reset."),
 		ResetKills("Messages.Reset.Kills.Another Player", "'s kills have been reset."),
 		
+		LeaderboardsFalse("Messages.Leaderboards.Deny", "The Leaderboards are disabled."),
+		
 		AllowLeaderboards("Leaderboards.Allow", true),
 		LeaderboardsAmount("Leaderboards.People to View", 10),
 		Color("Leaderboards.Color", "GOLD");
