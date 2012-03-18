@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.JOptionPane;
-
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -49,7 +47,7 @@ public class TopPVP extends JavaPlugin
 		config.getConfig();
 		getConfig();
 		log.info(pvp + " TopPVP Enabled!");
-		if(!(getConfig().getInt("Version") == 6))
+		if(!(getConfig().getInt("Version") == 7))
 		{
 			saveConfig(); 
 			ArrayList<String> files = new ArrayList<String>();
@@ -57,16 +55,10 @@ public class TopPVP extends JavaPlugin
 			{
 				files.add("players.conf");
 			}
-			if(new File("plugins/TopPVP/config.yml").exists())
+			if(!new File("plugins/TopPVP/config.yml").exists())
 			{
-				File config = new File("plugins/TopPVP/config.yml");
-				config.renameTo(new File("plugins/TopPVP/players.yml"));
 				files.add("config.yml");
-			}
-			else
-			{
-				files.add("players.yml");
-				files.add("config.yml");
+				files.add("player.yml");
 			}
 			files.add("config_Template.yml");
 			for(String name: files)
@@ -79,10 +71,9 @@ public class TopPVP extends JavaPlugin
 					Logger.getLogger(TopPVP.class.getName()).log(Level.SEVERE, null, ex);
 				}
 			}
-			this.getPlayersConfig().set("info.", null);
 		}
 		reloadConfig();
-		getConfig().set("Version", 6);
+		getConfig().set("Version", 7);
 		saveConfig();
 		lead = new Leaderboards(this);
 		cmd = new TopPVPCommandListener(this, lead);
@@ -95,6 +86,8 @@ public class TopPVP extends JavaPlugin
 		getCommand("resetdeaths").setExecutor(cmd);
 		getCommand("resetkills").setExecutor(cmd);
 		getCommand("leadkills").setExecutor(cmd);
+		getCommand("setkills").setExecutor(cmd);
+		getCommand("setdeaths").setExecutor(cmd);
 		getCommand("pvphelp").setExecutor(cmd);
 	}
 

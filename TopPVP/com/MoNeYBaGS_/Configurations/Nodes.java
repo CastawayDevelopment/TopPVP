@@ -8,6 +8,32 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 public class Nodes
 {
+	public static enum Permissions {
+		
+		General("pvp.general"),
+		Kills("pvp.kills"),
+		Deaths("pvp.deaths"),
+		KDR("pvp.kdr"),
+		ResetKills("pvp.resetkills"),
+		REsetDeaths("pvp.resetdeaths"),
+		KillsLeaderboards("pvp.leadkills"),
+		SetKills("pvp.setkills"),
+		SetDeaths("pvp.setdeaths");		
+		
+		private String perm;
+		
+		private Permissions(String perm)
+		{
+			this.perm = perm;
+		}
+		
+		public String getString()
+		{
+			return (String) this.perm;
+		}
+	}
+	
+	
 	public static enum Paths {
 		
 		DeathsReturn1("Messages.Deaths.Before Number", "You have died "),
@@ -30,7 +56,7 @@ public class Nodes
 		AllowLeaderboards("Leaderboards.Allow", true),
 		LeaderboardsAmount("Leaderboards.People to View", 10),
 		Color("Leaderboards.Color", "GOLD");
-		
+
 		private String path;
 		private Object value;
 		

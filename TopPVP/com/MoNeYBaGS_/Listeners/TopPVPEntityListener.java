@@ -1,5 +1,8 @@
 package com.MoNeYBaGS_.Listeners;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -11,12 +14,15 @@ import org.bukkit.event.entity.EntityDeathEvent;
 
 import com.MoNeYBaGS_.TopPVP;
 import com.MoNeYBaGS_.Configurations.Nodes;
+import com.MoNeYBaGS_.Leaderboards.Leaderboards;
+import com.MoNeYBaGS_.Leaderboards.trimLeaderboards;
 
 
 public class TopPVPEntityListener implements Listener {
-	
+
 	private static TopPVP plugin;
 	private Player tempplayer;
+	private ArrayList<String> templeader = new ArrayList<String>();
 
 	public TopPVPEntityListener(TopPVP instance) {
 		plugin = instance;
@@ -50,42 +56,53 @@ public class TopPVPEntityListener implements Listener {
 		if(entity instanceof Player)
 		{
 			Player victim = (Player) entity;
-			plugin.log.info(plugin.pvp + "Player died: " + victim.getName() );
-			plugin.reloadPlayersConfig();
-			plugin.getPlayersConfig().set("players." + victim.getName() + ".Deaths", 
-					plugin.getPlayersConfig().getInt("players." + victim.getName() + ".Deaths", 0) + 1);
-			plugin.savePlayersConfig();
-			
-			int deaths = plugin.getPlayersConfig().getInt("players." + victim.getName()
-					+ ".Deaths", 1);
-			if(deaths == 1)
+			if(victim.getKiller() instanceof Player)
 			{
-				victim.sendMessage(ChatColor.GREEN + Nodes.Paths.DeathsReturnOnce.getString());
-			}
-			else
-				victim.sendMessage(ChatColor.GREEN + Nodes.Paths.DeathsReturn1.getString() + deaths
-					 + Nodes.Paths.DeathsReturn2.getString());
-			Player actualplayer = ((Player) entity).getKiller();
-			if(actualplayer == tempplayer)
-			{
-				if(!(actualplayer == null))
+				plugin.log.info(plugin.pvp + "Player Killed: " + victim.getName() );
+				plugin.reloadPlayersConfig();
+				plugin.getPlayersConfig().set("players." + victim.getName() + ".Deaths", 
+						plugin.getPlayersConfig().getInt("players." + victim.getName() + ".Deaths", 0) + 1);
+				plugin.savePlayersConfig();
+
+				int deaths = plugin.getPlayersConfig().getInt("players." + victim.getName()
+						+ ".Deaths", 1);
+				if(deaths == 1)
 				{
-					plugin.reloadPlayersConfig();
-					plugin.getPlayersConfig().set("players." + actualplayer.getName() + ".Kills", 
-							plugin.getPlayersConfig().getInt("players." + actualplayer.getName() + ".Kills", 0) + 1);
-					
-					plugin.savePlayersConfig();
-					
-					int kills = (plugin.getPlayersConfig().getInt("players." + actualplayer.getName()
-							+ ".Kills"));
-					if(kills == 1)
+					victim.sendMessage(ChatColor.GREEN + Nodes.Paths.DeathsReturnOnce.getString());
+				}
+				else
+					victim.sendMessage(ChatColor.GREEN + Nodes.Paths.DeathsReturn1.getString() + deaths
+							+ Nodes.Paths.DeathsReturn2.getString());
+				Player actualplayer = ((Player) entity).getKiller();
+				if(actualplayer == tempplayer)
+				{
+					if(!(actualplayer == null))
 					{
-						actualplayer.sendMessage(ChatColor.RED + Nodes.Paths.KillsReturnOnce.getString());
+						plugin.reloadPlayersConfig();
+						plugin.getPlayersConfig().set("players." + actualplayer.getName() + ".Kills", 
+								plugin.getPlayersConfig().getInt("players." + actualplayer.getName() + ".Kills", 0) + 1);
+
+						plugin.savePlayersConfig();
+
+						int kills = (plugin.getPlayersConfig().getInt("players." + actualplayer.getName()
+								+ ".Kills"));
+						if(kills == 1)
+						{
+							actualplayer.sendMessage(ChatColor.RED + Nodes.Paths.KillsReturnOnce.getString());
+						}
+						else
+							actualplayer.sendMessage(ChatColor.RED + Nodes.Paths.KillsReturn1.getString() + kills + 
+									Nodes.Paths.KillsReturn2.getString());	
+						actualplayer = null;
+						Map<String, Integer> tree = Leaderboards.getLeaderboards();
+						trimLeaderboards trim = new trimLeaderboards();
+						ArrayList<String> temp = trim.getTrimCheck(tree.toString());
+						if(!(temp.get(0) == templeader.get(0)))
+						{
+							plugin.getServer().broadcastMessage(temp.get(0) + " has pulled into the lead!");
+							templeader = temp;
+						}
 					}
-					else
-						actualplayer.sendMessage(ChatColor.RED + Nodes.Paths.KillsReturn1.getString() + kills + 
-							Nodes.Paths.KillsReturn2.getString());	
-					actualplayer = null;
 				}
 			}
 		}

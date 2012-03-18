@@ -1,6 +1,6 @@
 name: TopPVP
 main: com.MoNeYBaGS_.TopPVP
-version: 0.6
+version: 0.8
 
 commands:
    kills:
@@ -24,3 +24,9 @@ commands:
    leadkills:
       description: View the Kills leaderboard.
       usage: /leadkills
+   setkills:
+      description: Set a player's kill count.
+      usage: /setkills <player> <amount>
+   setdeaths:
+      description: Set a player's death count.
+      usage: /setdeaths <player> <amount>

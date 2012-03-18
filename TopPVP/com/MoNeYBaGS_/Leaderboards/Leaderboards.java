@@ -8,7 +8,7 @@ import com.MoNeYBaGS_.TopPVP;
 public class Leaderboards {
 	
 	private final TopPVP plugin;
-	private final Players lead;
+	private static Players lead = null;
 	
 	public Leaderboards(TopPVP instance)
 	{
@@ -16,8 +16,8 @@ public class Leaderboards {
 		lead = new Players(plugin);
 	}
 	
-	public Map<String, Integer> getLeaderboards()
+	public static Map<String, Integer> getLeaderboards()
 	{
-		return lead.getLeaderboard();
+		return lead.getKillsLeaderboard();
 	}
 }

@@ -23,7 +23,6 @@ public class Players {
 	private Map<String, Integer> leaderboard;
 
 	public Players(TopPVP instance) {
-
 		this.plugin = instance;
 		this.refreshLeaderboards();
 	}
@@ -107,7 +106,7 @@ public class Players {
 		return playernames;
 	}
 
-	public Map<String, Integer> getLeaderboard()
+	public Map<String, Integer> getKillsLeaderboard()
 	{
 		this.refreshLeaderboards();
 		return leaderboard;
