@@ -22,8 +22,10 @@ public class TopPVPEntityListener implements Listener {
 
 	private static TopPVP plugin;
 	private Player tempplayer;
-	private ArrayList<String> templeader = new ArrayList<String>();
-
+	private ArrayList<String> tempkills = new ArrayList<String>();
+	private ArrayList<String> tempkdr = new ArrayList<String>();
+	private ArrayList<String> tempdeaths = new ArrayList<String>();
+ 
 	public TopPVPEntityListener(TopPVP instance) {
 		plugin = instance;
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
@@ -39,6 +41,18 @@ public class TopPVPEntityListener implements Listener {
 				Entity attacker = sub.getDamager();
 				if ((attacker instanceof Player)) {
 					tempplayer = (Player)attacker;
+					
+					Map<String, Integer> tree_kills = Leaderboards.getKillsLeaderboards();
+					trimLeaderboards trim_kills = new trimLeaderboards();
+					tempkills = trim_kills.getTrimCheck(tree_kills.toString());
+					
+					Map<String, Double> tree_kdr = Leaderboards.getKDRLeaderboards();
+					trimLeaderboards trim_kdr = new trimLeaderboards();
+					tempkdr = trim_kdr.getTrimCheck(tree_kdr.toString());
+					
+					Map<String, Integer> tree_deaths = Leaderboards.getDeathsLeaderboards();
+					trimLeaderboards trim_deaths = new trimLeaderboards();
+					tempdeaths = trim_deaths.getTrimCheck(tree_deaths.toString());
 				}
 			}
 		}
@@ -94,13 +108,32 @@ public class TopPVPEntityListener implements Listener {
 							actualplayer.sendMessage(ChatColor.RED + Nodes.Paths.KillsReturn1.getString() + kills + 
 									Nodes.Paths.KillsReturn2.getString());	
 						actualplayer = null;
-						Map<String, Integer> tree = Leaderboards.getLeaderboards();
-						trimLeaderboards trim = new trimLeaderboards();
-						ArrayList<String> temp = trim.getTrimCheck(tree.toString());
-						if(!(temp.get(0) == templeader.get(0)))
+						
+						Map<String, Integer> tree_kills = Leaderboards.getKillsLeaderboards();
+						trimLeaderboards trim_kills = new trimLeaderboards();
+						ArrayList<String> temp_kills = trim_kills.getTrimCheck(tree_kills.toString());
+						if(!(temp_kills.get(1).equals(tempkills.get(1))))
 						{
-							plugin.getServer().broadcastMessage(temp.get(0) + " has pulled into the lead!");
-							templeader = temp;
+							plugin.getServer().broadcastMessage(ChatColor.GOLD + temp_kills.get(0) + " is the new kills leader!");
+							tempkills = temp_kills;
+						}
+						
+						Map<String, Double> tree_kdr = Leaderboards.getKDRLeaderboards();
+						trimLeaderboards trim_kdr = new trimLeaderboards();
+						ArrayList<String> temp_kdr = trim_kdr.getTrimCheck(tree_kdr.toString());
+						if(!(temp_kdr.get(1).equals(tempkdr.get(1))))
+						{
+							plugin.getServer().broadcastMessage(ChatColor.GOLD + temp_kdr.get(0) + " is the new kdr leader!");
+							tempkdr = temp_kdr;
+						}
+						
+						Map<String, Integer> tree_deaths = Leaderboards.getDeathsLeaderboards();
+						trimLeaderboards trim_deaths = new trimLeaderboards();
+						ArrayList<String> temp_deaths = trim_deaths.getTrimCheck(tree_deaths.toString());
+						if(!(temp_deaths.get(1).equals(tempdeaths.get(1))))
+						{
+							plugin.getServer().broadcastMessage(ChatColor.GOLD + temp_deaths.get(0) + " is the new deaths leader!");
+							tempdeaths = temp_deaths;
 						}
 					}
 				}

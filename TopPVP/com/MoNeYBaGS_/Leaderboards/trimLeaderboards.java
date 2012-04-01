@@ -17,7 +17,6 @@ public class trimLeaderboards {
 				break;
 			if(untrimmed.charAt(i) == ',' || i == untrimmed.length() - 1)
 			{
-				temp += " Kills";
 				finals.add(temp);
 				count++;
 				i += 1;
@@ -26,7 +25,7 @@ public class trimLeaderboards {
 			}
 			else if(untrimmed.charAt(i) == '=')
 			{
-				temp += " - ";
+				temp += " = ";
 			}
 			else
 			{

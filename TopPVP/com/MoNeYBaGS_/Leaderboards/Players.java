@@ -20,7 +20,9 @@ public class Players {
 	private Player player;
 	private int kills;
 	private final TopPVP plugin;
-	private Map<String, Integer> leaderboard;
+	private Map<String, Integer> killslead;
+	private Map<String, Double> kdrlead;
+	private Map<String, Integer> deathslead;
 
 	public Players(TopPVP instance) {
 		this.plugin = instance;
@@ -33,15 +35,31 @@ public class Players {
 			BufferedReader bin = new BufferedReader(new FileReader("plugins/TopPVP/players.conf"));
 			String all = bin.readLine();
 			playernames = returnPlayerArray(all);
-			leaderboard = createLeaderboards(playernames);
+			killslead = createKillsLeaderboards(playernames);
+			kdrlead = createKDRLeaderboards(playernames);
+			deathslead = createDeathsLeaderboards(playernames);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	private Map<String, Integer> createDeathsLeaderboards(ArrayList<String> player)
+	{
+		Map<String, Integer> unsorted = new HashMap<String, Integer>();
+		for(int i = 0; i < player.size(); i++)
+		{
+			unsorted.put(player.get(i), plugin.getPlayersConfig().getInt("players." + player.get(i).toString() + ".Deaths"));
+		}
+		KillsComparator compare = new KillsComparator(unsorted);
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		TreeMap<String, Integer> sorted = new TreeMap(compare);
+		sorted.putAll(unsorted);
+		return sorted;
+	}
 
-	private Map<String, Integer> createLeaderboards(ArrayList<String> player)
+	private Map<String, Integer> createKillsLeaderboards(ArrayList<String> player)
 	{
 		Map<String, Integer> unsorted = new HashMap<String, Integer>();
 		for(int i = 0; i < player.size(); i++)
@@ -51,6 +69,23 @@ public class Players {
 		KillsComparator compare = new KillsComparator(unsorted);
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		TreeMap<String, Integer> sorted = new TreeMap(compare);
+		sorted.putAll(unsorted);
+		return sorted;
+	}
+
+	private Map<String, Double> createKDRLeaderboards(ArrayList<String> player)
+	{
+		Map<String, Double> unsorted = new HashMap<String, Double>();
+		for(int i = 0; i < player.size(); i++)
+		{
+			double ratio = Math.round(((double)(plugin.getPlayersConfig().getInt("players." + player.get(i).toString() + ".Kills"))
+					/(double)plugin.getPlayersConfig().getInt("players." + player.get(i).toString() + ".Deaths"))
+					* 100.0D) / 100.0D;
+			unsorted.put(player.get(i), ratio);
+		}
+		KDRComparator compareDouble = new KDRComparator(unsorted);
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		TreeMap<String, Double> sorted = new TreeMap(compareDouble);
 		sorted.putAll(unsorted);
 		return sorted;
 	}
@@ -109,6 +144,18 @@ public class Players {
 	public Map<String, Integer> getKillsLeaderboard()
 	{
 		this.refreshLeaderboards();
-		return leaderboard;
+		return killslead;
+	}
+
+	public Map<String, Double> getKDRLeaderboards()
+	{
+		this.refreshLeaderboards();
+		return kdrlead;
+	}
+	
+	public Map<String, Integer> getDeathsLeaderboards()
+	{
+		this.refreshLeaderboards();
+		return deathslead;
 	}
 }

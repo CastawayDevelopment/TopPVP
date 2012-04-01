@@ -16,8 +16,18 @@ public class Leaderboards {
 		lead = new Players(plugin);
 	}
 	
-	public static Map<String, Integer> getLeaderboards()
+	public static Map<String, Integer> getKillsLeaderboards()
 	{
 		return lead.getKillsLeaderboard();
+	}
+	
+	public static Map<String, Double> getKDRLeaderboards()
+	{
+		return lead.getKDRLeaderboards();
+	}
+	
+	public static Map<String, Integer> getDeathsLeaderboards()
+	{
+		return lead.getDeathsLeaderboards();
 	}
 }

@@ -18,7 +18,9 @@ public class Nodes
 		REsetDeaths("pvp.resetdeaths"),
 		KillsLeaderboards("pvp.leadkills"),
 		SetKills("pvp.setkills"),
-		SetDeaths("pvp.setdeaths");		
+		SetDeaths("pvp.setdeaths"),
+		KDRLeaderboards("pvp.leadkdr"),
+		DeathsLeaderboards("pvp.leaddeaths");		
 		
 		private String perm;
 		

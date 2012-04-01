@@ -9,7 +9,9 @@ import java.util.logging.Logger;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.MoNeYBaGS_.Commands.TopPVPCommandListener;
+import com.MoNeYBaGS_.Commands.Admin_Commands;
+import com.MoNeYBaGS_.Commands.Basic;
+import com.MoNeYBaGS_.Commands.Lead_Commands;
 import com.MoNeYBaGS_.Configurations.Files;
 import com.MoNeYBaGS_.Configurations.PlayersConfiguration;
 import com.MoNeYBaGS_.Leaderboards.Leaderboards;
@@ -21,8 +23,10 @@ public class TopPVP extends JavaPlugin
 {
 
 	private Leaderboards lead;
-	private TopPVPCommandListener cmd;
+	private Basic basic;
+	private Lead_Commands leaderboards;
 	private PlayersConfiguration config;
+	private Admin_Commands admin;
 
 	//Strings
 	public String pvp = "[TopPVP]: ";
@@ -47,7 +51,7 @@ public class TopPVP extends JavaPlugin
 		config.getConfig();
 		getConfig();
 		log.info(pvp + " TopPVP Enabled!");
-		if(!(getConfig().getInt("Version") == 7))
+		if(!(getConfig().getInt("Version") == 9))
 		{
 			saveConfig(); 
 			ArrayList<String> files = new ArrayList<String>();
@@ -73,22 +77,27 @@ public class TopPVP extends JavaPlugin
 			}
 		}
 		reloadConfig();
-		getConfig().set("Version", 7);
+		getConfig().set("Version", 9);
 		saveConfig();
 		lead = new Leaderboards(this);
-		cmd = new TopPVPCommandListener(this, lead);
+		basic = new Basic(this, lead);
+		leaderboards = new Lead_Commands(this, lead);
+		admin = new Admin_Commands(this);
+		
 		new TopPVPPlayerListener(this);
 		new TopPVPEntityListener(this);
 
-		getCommand("kills").setExecutor(cmd);
-		getCommand("deaths").setExecutor(cmd);
-		getCommand("kdr").setExecutor(cmd);
-		getCommand("resetdeaths").setExecutor(cmd);
-		getCommand("resetkills").setExecutor(cmd);
-		getCommand("leadkills").setExecutor(cmd);
-		getCommand("setkills").setExecutor(cmd);
-		getCommand("setdeaths").setExecutor(cmd);
-		getCommand("pvphelp").setExecutor(cmd);
+		getCommand("kills").setExecutor(basic);
+		getCommand("deaths").setExecutor(basic);
+		getCommand("kdr").setExecutor(basic);
+		getCommand("resetdeaths").setExecutor(admin);
+		getCommand("resetkills").setExecutor(admin);
+		getCommand("leadkills").setExecutor(leaderboards);
+		getCommand("leaddeaths").setExecutor(leaderboards);
+		getCommand("leadkdr").setExecutor(leaderboards);
+		getCommand("setkills").setExecutor(admin);
+		getCommand("setdeaths").setExecutor(admin);
+		getCommand("pvphelp").setExecutor(basic);
 	}
 
 	public void reloadPlayersConfig()
