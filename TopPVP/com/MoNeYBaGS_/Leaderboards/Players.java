@@ -78,9 +78,19 @@ public class Players {
 		Map<String, Double> unsorted = new HashMap<String, Double>();
 		for(int i = 0; i < player.size(); i++)
 		{
-			double ratio = Math.round(((double)(plugin.getPlayersConfig().getInt("players." + player.get(i).toString() + ".Kills"))
-					/(double)plugin.getPlayersConfig().getInt("players." + player.get(i).toString() + ".Deaths"))
-					* 100.0D) / 100.0D;
+			double ratio = 0.00;
+			double kills = (double)(plugin.getPlayersConfig().getInt("players." + player.get(i).toString() + ".Kills"));
+			double deaths = (double)(plugin.getPlayersConfig().getInt("players." + player.get(i).toString() + ".Deaths"));
+			if(deaths == 0)
+			{
+				ratio = kills;
+			}
+			else if(kills == 0)
+			{
+				ratio = 0.00;
+			}
+			else 
+				ratio = Math.round(((kills) / (deaths) * 100.0D)) / 100.0D;
 			unsorted.put(player.get(i), ratio);
 		}
 		KDRComparator compareDouble = new KDRComparator(unsorted);
