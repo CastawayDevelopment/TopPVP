@@ -3,9 +3,12 @@ Version - 0.6
 	  1.2.3 Compatible
 
 TODO:
-	- Permissions Integration
+	- Vault Integration 
 	- /setkills /setdeaths
 	- More admin commands
+	- Configs: To allow all deaths or just pvp deaths to be counted. 
+	- Switch to Sql and use Patpeter Library.
 
 ISSUES:
-	- None
+	- Slow. 
+	- Arrow kills do not work. 
