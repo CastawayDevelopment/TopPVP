@@ -1,4 +1,4 @@
-package com.MoNeYBaGS_.Configurations;
+package TopPVP.com.MoNeYBaGS_.Configurations;
 
 import java.io.File;
 import java.io.FileOutputStream;

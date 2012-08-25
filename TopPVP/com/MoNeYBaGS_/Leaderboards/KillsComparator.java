@@ -1,4 +1,4 @@
-package com.MoNeYBaGS_.Leaderboards;
+package TopPVP.com.MoNeYBaGS_.Leaderboards;
 
 import java.util.Comparator;
 import java.util.Map;
