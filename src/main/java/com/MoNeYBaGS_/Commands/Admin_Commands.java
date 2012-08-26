@@ -18,15 +18,7 @@ public class Admin_Commands implements CommandExecutor{
 		this.plugin = _plugin;
 	}
 	
-	ChatColor black = ChatColor.BLACK;
-	ChatColor dgray = ChatColor.DARK_GRAY;
-	ChatColor purple = ChatColor.DARK_PURPLE;
-	ChatColor aqua = ChatColor.AQUA;
-	ChatColor daqua = ChatColor.DARK_AQUA;
-	ChatColor dred = ChatColor.DARK_RED;
-	ChatColor red = ChatColor.RED;
-	ChatColor gold = ChatColor.GOLD;
-	ChatColor gray = ChatColor.GRAY;
+	
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel,
 			String[] args) { 
@@ -48,20 +40,10 @@ public class Admin_Commands implements CommandExecutor{
 				{
 					if(player.hasPermission(Nodes.Permissions.REsetDeaths.getString()))
 					{
-						
-						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
-						player.sendMessage("");
-
-						player.sendMessage(ChatColor.AQUA + args[0] + daqua + Nodes.Paths.ResetDeaths.getString());
-						
-						player.sendMessage("");
-						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
-						
+						player.sendMessage(ChatColor.GREEN + args[0] + Nodes.Paths.ResetDeaths.getString());
 						plugin.reloadPlayersConfig();
 						plugin.getPlayersConfig().set("players." + args[0] + ".Deaths", 0);
 						plugin.savePlayersConfig();
-						
-
 						return true;
 					}
 					else
@@ -74,15 +56,7 @@ public class Admin_Commands implements CommandExecutor{
 				{
 					if(player.hasPermission(Nodes.Permissions.REsetDeaths.getString()))
 					{
-						
-						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
-						player.sendMessage("");
-						
-						player.sendMessage(ChatColor.DARK_RED + Nodes.Paths.ResetDeathsYou.getString());
-						
-						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
-						player.sendMessage("");
-						
+						player.sendMessage(ChatColor.GREEN + Nodes.Paths.ResetDeathsYou.getString());
 						plugin.reloadPlayersConfig();
 						plugin.getPlayersConfig().set("players." + player.getName() + ".Deaths", 0);
 						plugin.savePlayersConfig();
@@ -108,15 +82,7 @@ public class Admin_Commands implements CommandExecutor{
 				{
 					if(player.hasPermission(Nodes.Permissions.ResetKills.getString()))
 					{
-						
-						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
-						player.sendMessage("");
-						
-						player.sendMessage(ChatColor.AQUA + args[0] + daqua + Nodes.Paths.ResetKills.getString());
-						
-						player.sendMessage("");
-						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
-						
+						player.sendMessage(ChatColor.GREEN + args[0] + Nodes.Paths.ResetKills.getString());
 						plugin.reloadPlayersConfig();
 						plugin.getPlayersConfig().set("players." + args[0] + ".Kills", 0);
 						plugin.savePlayersConfig();
@@ -132,14 +98,7 @@ public class Admin_Commands implements CommandExecutor{
 				{
 					if(player.hasPermission(Nodes.Permissions.ResetKills.getString()))
 					{
-						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
-						player.sendMessage("");
-						
-						player.sendMessage(ChatColor.DARK_RED + Nodes.Paths.ResetKillsYou.getString());
-						
-						player.sendMessage("");
-						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
-						
+						player.sendMessage(ChatColor.GREEN + Nodes.Paths.ResetKillsYou.getString());
 						plugin.reloadPlayersConfig();
 						plugin.getPlayersConfig().set("players." + player.getName() + ".Kills", 0);
 						plugin.savePlayersConfig();
@@ -165,15 +124,7 @@ public class Admin_Commands implements CommandExecutor{
 				{
 					if(player.hasPermission(Nodes.Permissions.SetKills.getString()))
 					{
-						
-						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
-						player.sendMessage("");
-						
-						player.sendMessage(ChatColor.DARK_AQUA + "Kills for " + aqua + args[0] + daqua + " have been set to " + aqua + args[1]);
-						
-						player.sendMessage("");
-						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
-						
+						player.sendMessage(ChatColor.GREEN + "Kills for " + args[0] + " have been set to " + args[1]);
 						plugin.reloadPlayersConfig();
 						plugin.getPlayersConfig().set("players." + args[0] + ".Kills", Integer.parseInt(args[1].toString()));
 						plugin.savePlayersConfig();
@@ -187,15 +138,7 @@ public class Admin_Commands implements CommandExecutor{
 				}
 				else
 				{
-					
-					player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
-					player.sendMessage("");
-					
 					player.sendMessage(ChatColor.RED + "Not enough arguments. Syntax is /setkills <player> <amount>.");
-					
-					player.sendMessage("");
-					player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
-					
 					return true;
 				}
 			}
@@ -215,15 +158,7 @@ public class Admin_Commands implements CommandExecutor{
 				{
 					if(player.hasPermission(Nodes.Permissions.SetDeaths.getString()))
 					{
-						
-						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
-						player.sendMessage("");
-						
-						player.sendMessage(ChatColor.DARK_AQUA + "Deaths for " + aqua + args[0] + daqua + " have been set to " + aqua + args[1]);
-						
-						player.sendMessage("");
-						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
-						
+						player.sendMessage(ChatColor.GREEN + "Deaths for " + args[0] + " have been set to " + args[1]);
 						plugin.reloadPlayersConfig();
 						plugin.getPlayersConfig().set("players." + args[0] + ".Deaths", args[1]);
 						plugin.savePlayersConfig();
@@ -237,15 +172,7 @@ public class Admin_Commands implements CommandExecutor{
 				}
 				else
 				{
-					
-					player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
-					player.sendMessage("");
-					
 					player.sendMessage(ChatColor.RED + "Not enough arguments. Syntax is /setdeaths <player> <amount>.");
-					
-					player.sendMessage("");
-					player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
-					
 					return true;
 				}
 			}

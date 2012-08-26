@@ -16,16 +16,6 @@ import com.MoNeYBaGS_.Leaderboards.trimLeaderboards;
 
 public class Lead_Commands implements CommandExecutor{
 	
-	ChatColor black = ChatColor.BLACK;
-	ChatColor dgray = ChatColor.DARK_GRAY;
-	ChatColor purple = ChatColor.DARK_PURPLE;
-	ChatColor aqua = ChatColor.AQUA;
-	ChatColor daqua = ChatColor.DARK_AQUA;
-	ChatColor dred = ChatColor.DARK_RED;
-	ChatColor red = ChatColor.RED;
-	ChatColor gold = ChatColor.GOLD;
-	ChatColor gray = ChatColor.GRAY;
-	
 	private TopPVP plugin;
 	private Leaderboards leaderboards;
 	
@@ -60,9 +50,7 @@ public class Lead_Commands implements CommandExecutor{
 						trimLeaderboards trim = new trimLeaderboards();
 						ArrayList<String> top = trim.getTrimmed(tree.toString());
 
-						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
-						player.sendMessage("");
-						
+						sender.sendMessage(ChatColor.RED + "**************PVP Kills Leaderboard**************");
 						sender.sendMessage(ChatColor.GREEN + "1. " + top.get(0) + " Kills");
 						for(int i = 1; i < top.size() && i <= Nodes.Paths.LeaderboardsAmount.getInt(); i++)
 							sender.sendMessage(ChatColor.GOLD + Integer.toString(i+1) + ". " + top.get(i) + " Kills");
