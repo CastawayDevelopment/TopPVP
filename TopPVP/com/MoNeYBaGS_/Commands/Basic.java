@@ -13,6 +13,16 @@ import com.MoNeYBaGS_.Leaderboards.Leaderboards;
 
 public class Basic implements CommandExecutor {
 
+	ChatColor black = ChatColor.BLACK;
+	ChatColor dgray = ChatColor.DARK_GRAY;
+	ChatColor purple = ChatColor.DARK_PURPLE;
+	ChatColor aqua = ChatColor.AQUA;
+	ChatColor daqua = ChatColor.DARK_AQUA;
+	ChatColor dred = ChatColor.DARK_RED;
+	ChatColor red = ChatColor.RED;
+	ChatColor gold = ChatColor.GOLD;
+	ChatColor gray = ChatColor.GRAY;
+	
 	private TopPVP plugin;
 	
 	public Basic(TopPVP _plugin, Leaderboards _leaderboards)
@@ -38,20 +48,49 @@ public class Basic implements CommandExecutor {
 					if(plugin.getPlayersConfig().getInt("players." + 
 							player.getName() + ".Kills", 0) == 0)
 					{
-						player.sendMessage(ChatColor.GREEN + Nodes.Paths.KillsReturnNone.getString());
+						
+						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
+						player.sendMessage("");
+						
+						player.sendMessage(ChatColor.DARK_AQUA + Nodes.Paths.KillsReturnNone.getString());
+						
+						player.sendMessage("");
+						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
+						
+						
 						return true;
 					}
 					else if(plugin.getPlayersConfig().getInt("players." + 
 							player.getName() + ".Kills", 0) == 1)
 					{
-						player.sendMessage(Nodes.Paths.KillsReturnOnce.getString());
+						
+						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
+						player.sendMessage("");
+						
+						player.sendMessage(daqua + Nodes.Paths.KillsReturnOnce.getString());
+						
+						player.sendMessage("");
+						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
+						
+						
 						return true;
+						
+						
+						
 					}
 					else
 					{
-						player.sendMessage(ChatColor.RED + Nodes.Paths.KillsReturn1.getString() + 
+						
+						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
+						player.sendMessage("");
+						
+						player.sendMessage(ChatColor.DARK_AQUA + Nodes.Paths.KillsReturn1.getString() + aqua +
 								plugin.getPlayersConfig().getInt("players." + 
-										player.getName() + ".Kills", 0) + Nodes.Paths.KillsReturn2.getString());
+										player.getName() + ".Kills", 0) + daqua + Nodes.Paths.KillsReturn2.getString());
+						
+						player.sendMessage("");
+						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
+						
 						return true;
 					}
 				}
@@ -75,18 +114,41 @@ public class Basic implements CommandExecutor {
 					if(plugin.getPlayersConfig().getInt("players." +
 							player.getName() + ".Deaths", 0) == 0)
 					{
+						
+						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
+						player.sendMessage("");
+						
 						player.sendMessage(ChatColor.RED + Nodes.Paths.DeathsReturnNone.getString());
+					
+						player.sendMessage("");
+						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
+					
 					}
 					else if(plugin.getPlayersConfig().getInt("players." +
 							player.getName() + ".Deaths", 0) == 1)
 					{
-						player.sendMessage(ChatColor.RED + Nodes.Paths.DeathsReturnOnce.getString());
+						
+						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
+						player.sendMessage("");
+						
+						player.sendMessage(ChatColor.DARK_AQUA + Nodes.Paths.DeathsReturnOnce.getString());
+					
+						player.sendMessage("");
+						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
+						
+					
 					}
 					else
 					{
-						player.sendMessage(ChatColor.RED + Nodes.Paths.DeathsReturn1.getString() + 
+						
+						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
+						player.sendMessage("");
+						player.sendMessage(ChatColor.DARK_AQUA + Nodes.Paths.DeathsReturn1.getString() + aqua +
 								plugin.getPlayersConfig().getInt("players." +
-										player.getName() + ".Deaths", 0) + Nodes.Paths.DeathsReturn2.getString());
+										player.getName() + ".Deaths", 0) + daqua + Nodes.Paths.DeathsReturn2.getString());
+						player.sendMessage("");
+						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
+					
 					}
 					return true;
 				}
@@ -128,8 +190,12 @@ public class Basic implements CommandExecutor {
 					{
 						ratio = 0.00;
 					}
-					player.sendMessage(ChatColor.GREEN + "Your Kill/Death Ratio : " + ratio + " or " + kills + ":"
-							+ deaths);
+					player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
+					player.sendMessage("");
+					player.sendMessage(daqua + "Your Kill/Death Ratio : " + aqua + ratio + daqua + " or " + aqua + kills + daqua + ":"
+							+ aqua + deaths);
+					player.sendMessage("");
+					player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
 					return true;
 				}
 				else
@@ -146,17 +212,9 @@ public class Basic implements CommandExecutor {
 		
 		else if(cmd.getName().equalsIgnoreCase("pvphelp"))
 		{
-			ChatColor black = ChatColor.BLACK;
-			ChatColor dgray = ChatColor.DARK_GRAY;
-			ChatColor purple = ChatColor.DARK_PURPLE;
-			ChatColor aqua = ChatColor.AQUA;
-			ChatColor daqua = ChatColor.DARK_AQUA;
-			ChatColor dred = ChatColor.DARK_RED;
-			ChatColor red = ChatColor.RED;
-			ChatColor gold = ChatColor.GOLD;
-			ChatColor gray = ChatColor.GRAY;
 			
-			sender.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Commands" + ChatColor.BLACK + "======");
+			
+			sender.sendMessage(ChatColor.BLACK + "===========" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Commands" + purple + "]" + ChatColor.BLACK + "===========");
 			if(player.hasPermission(Nodes.Permissions.Kills.getString()))
 				sender.sendMessage(gold + "/kills " + aqua + "- " + gray + "View your kills.");
 			if(player.hasPermission(Nodes.Permissions.Deaths.getString()))
@@ -174,7 +232,7 @@ public class Basic implements CommandExecutor {
 			if(player.hasPermission(Nodes.Permissions.KillsLeaderboards.getString()))
 				sender.sendMessage(gold + "/leadkills" + aqua + " - " + gray + "View Kills Leaderboard.");
 			sender.sendMessage(gold + "/pvphelp" + aqua +  " - " + gray + "Shows this dialogue.");
-			sender.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Commands" + ChatColor.BLACK + "======");
+			sender.sendMessage(ChatColor.BLACK + "===========" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Commands" + purple + "]" + ChatColor.BLACK + "===========");
 			return true;
 		}
 		
