@@ -1,4 +1,4 @@
-package TopPVP.com.MoNeYBaGS_.Commands;
+package com.MoNeYBaGS_.Commands;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -323,7 +323,7 @@ public class TopPVPCommandListener implements CommandExecutor {
 			sender.sendMessage(ChatColor.RED + "****************************************************");
 			return true;
 		}
-		else if(cmd.getName().equalsIgnoreCase("leadkills"))
+		else if(cmd.getName().equalsIgnoreCase("leadkills"))//needs testing
 		{
 			if(Nodes.Paths.AllowLeaderboards.getBool() == true)
 			{
@@ -332,7 +332,7 @@ public class TopPVPCommandListener implements CommandExecutor {
 					if(player.hasPermission(Nodes.Permissions.General.getString()) || 
 							player.hasPermission(Nodes.Permissions.KillsLeaderboards.getString()))
 					{
-						Map<String, Integer> tree = leaderboards.getLeaderboards();
+						Map<String, Integer> tree = leaderboards.getKillsLeaderboards();
 						trimLeaderboards trim = new trimLeaderboards();
 						ArrayList<String> top = trim.getTrimmed(tree.toString());
 
@@ -351,7 +351,7 @@ public class TopPVPCommandListener implements CommandExecutor {
 				}
 				else
 				{
-					Map<String, Integer> tree = leaderboards.getLeaderboards();
+					Map<String, Integer> tree = leaderboards.getKillsLeaderboards();
 					trimLeaderboards trim = new trimLeaderboards();
 					ArrayList<String> top = trim.getTrimmed(tree.toString());
 

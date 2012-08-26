@@ -1,4 +1,4 @@
-package TopPVP.com.MoNeYBaGS_.Commands;
+package com.MoNeYBaGS_.Commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

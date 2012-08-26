@@ -1,4 +1,4 @@
-package TopPVP.com.MoNeYBaGS_;
+package com.MoNeYBaGS_;
 
 import java.io.File;
 import java.io.InputStream;
@@ -85,7 +85,7 @@ public class TopPVP extends JavaPlugin
 		admin = new Admin_Commands(this);
 		
 		new TopPVPPlayerListener(this);
-		new TopPVPEntityListener(this);
+		new TopPVPEntityListener(this, lead);
 
 		getCommand("kills").setExecutor(basic);
 		getCommand("deaths").setExecutor(basic);

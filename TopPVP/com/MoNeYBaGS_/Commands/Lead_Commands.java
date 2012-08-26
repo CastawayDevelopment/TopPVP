@@ -1,4 +1,4 @@
-package TopPVP.com.MoNeYBaGS_.Commands;
+package com.MoNeYBaGS_.Commands;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -17,9 +17,12 @@ import com.MoNeYBaGS_.Leaderboards.trimLeaderboards;
 public class Lead_Commands implements CommandExecutor{
 	
 	private TopPVP plugin;
+	private Leaderboards leaderboards;
+	
 	public Lead_Commands(TopPVP _plugin, Leaderboards _leaderboards)
 	{
 		this.plugin = _plugin;
+		this.leaderboards = _leaderboards;
 	}
 	
 	
@@ -43,7 +46,7 @@ public class Lead_Commands implements CommandExecutor{
 					if(player.hasPermission(Nodes.Permissions.General.getString()) || 
 							player.hasPermission(Nodes.Permissions.KillsLeaderboards.getString()))
 					{
-						Map<String, Integer> tree = Leaderboards.getKillsLeaderboards();
+						Map<String, Integer> tree = leaderboards.getKillsLeaderboards();
 						trimLeaderboards trim = new trimLeaderboards();
 						ArrayList<String> top = trim.getTrimmed(tree.toString());
 
@@ -62,7 +65,7 @@ public class Lead_Commands implements CommandExecutor{
 				}
 				else
 				{
-					Map<String, Integer> tree = Leaderboards.getKillsLeaderboards();
+					Map<String, Integer> tree = leaderboards.getKillsLeaderboards();
 					trimLeaderboards trim = new trimLeaderboards();
 					ArrayList<String> top = trim.getTrimmed(tree.toString());
 
@@ -87,7 +90,7 @@ public class Lead_Commands implements CommandExecutor{
 					if(player.hasPermission(Nodes.Permissions.General.getString()) || 
 							player.hasPermission(Nodes.Permissions.KDRLeaderboards.getString()))
 					{
-						Map<String, Double> tree = Leaderboards.getKDRLeaderboards();
+						Map<String, Double> tree = leaderboards.getKDRLeaderboards();
 						trimLeaderboards trim = new trimLeaderboards();
 						ArrayList<String> top = trim.getTrimmed(tree.toString());
 
@@ -106,7 +109,7 @@ public class Lead_Commands implements CommandExecutor{
 				}
 				else
 				{
-					Map<String, Integer> tree = Leaderboards.getKillsLeaderboards();
+					Map<String, Integer> tree = leaderboards.getKillsLeaderboards();
 					trimLeaderboards trim = new trimLeaderboards();
 					ArrayList<String> top = trim.getTrimmed(tree.toString());
 
@@ -131,7 +134,7 @@ public class Lead_Commands implements CommandExecutor{
 					if(player.hasPermission(Nodes.Permissions.General.getString()) || 
 							player.hasPermission(Nodes.Permissions.DeathsLeaderboards.getString()))
 					{
-						Map<String, Integer> tree = Leaderboards.getDeathsLeaderboards();
+						Map<String, Integer> tree = leaderboards.getDeathsLeaderboards();
 						trimLeaderboards trim = new trimLeaderboards();
 						ArrayList<String> top = trim.getTrimmed(tree.toString());
 
@@ -150,7 +153,7 @@ public class Lead_Commands implements CommandExecutor{
 				}
 				else
 				{
-					Map<String, Integer> tree = Leaderboards.getKillsLeaderboards();
+					Map<String, Integer> tree = leaderboards.getKillsLeaderboards();
 					trimLeaderboards trim = new trimLeaderboards();
 					ArrayList<String> top = trim.getTrimmed(tree.toString());
 

@@ -1,4 +1,4 @@
-package TopPVP.com.MoNeYBaGS_.Leaderboards;
+package com.MoNeYBaGS_.Leaderboards;
 
 import java.util.Map;
 
@@ -8,7 +8,7 @@ import com.MoNeYBaGS_.TopPVP;
 public class Leaderboards {
 	
 	private final TopPVP plugin;
-	private static Players lead = null;
+	private Players lead = null;
 	
 	public Leaderboards(TopPVP instance)
 	{
@@ -16,17 +16,17 @@ public class Leaderboards {
 		lead = new Players(plugin);
 	}
 	
-	public static Map<String, Integer> getKillsLeaderboards()
+	public Map<String, Integer> getKillsLeaderboards()
 	{
 		return lead.getKillsLeaderboard();
 	}
 	
-	public static Map<String, Double> getKDRLeaderboards()
+	public Map<String, Double> getKDRLeaderboards()
 	{
 		return lead.getKDRLeaderboards();
 	}
 	
-	public static Map<String, Integer> getDeathsLeaderboards()
+	public Map<String, Integer> getDeathsLeaderboards()
 	{
 		return lead.getDeathsLeaderboards();
 	}

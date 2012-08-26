@@ -1,4 +1,4 @@
-package TopPVP.com.MoNeYBaGS_.Listeners;
+package com.MoNeYBaGS_.Listeners;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

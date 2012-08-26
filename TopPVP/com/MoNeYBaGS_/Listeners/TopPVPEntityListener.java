@@ -1,4 +1,4 @@
-package TopPVP.com.MoNeYBaGS_.Listeners;
+package com.MoNeYBaGS_.Listeners;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -21,13 +21,15 @@ import com.MoNeYBaGS_.Leaderboards.trimLeaderboards;
 public class TopPVPEntityListener implements Listener {
 
 	private static TopPVP plugin;
+	private Leaderboards leaderboards;
 	private Player tempplayer;
 	private ArrayList<String> tempkills = new ArrayList<String>();
 	private ArrayList<String> tempkdr = new ArrayList<String>();
 	private ArrayList<String> tempdeaths = new ArrayList<String>();
  
-	public TopPVPEntityListener(TopPVP instance) {
+	public TopPVPEntityListener(TopPVP instance, Leaderboards leaderboards) {
 		plugin = instance;
+		this.leaderboards = leaderboards;
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 
@@ -42,15 +44,15 @@ public class TopPVPEntityListener implements Listener {
 				if ((attacker instanceof Player)) {
 					tempplayer = (Player)attacker;
 					
-					Map<String, Integer> tree_kills = Leaderboards.getKillsLeaderboards();
+					Map<String, Integer> tree_kills = leaderboards.getKillsLeaderboards();
 					trimLeaderboards trim_kills = new trimLeaderboards();
 					tempkills = trim_kills.getTrimCheck(tree_kills.toString());
 					
-					Map<String, Double> tree_kdr = Leaderboards.getKDRLeaderboards();
+					Map<String, Double> tree_kdr = leaderboards.getKDRLeaderboards();
 					trimLeaderboards trim_kdr = new trimLeaderboards();
 					tempkdr = trim_kdr.getTrimCheck(tree_kdr.toString());
 					
-					Map<String, Integer> tree_deaths = Leaderboards.getDeathsLeaderboards();
+					Map<String, Integer> tree_deaths = leaderboards.getDeathsLeaderboards();
 					trimLeaderboards trim_deaths = new trimLeaderboards();
 					tempdeaths = trim_deaths.getTrimCheck(tree_deaths.toString());
 				}
@@ -109,7 +111,7 @@ public class TopPVPEntityListener implements Listener {
 									Nodes.Paths.KillsReturn2.getString());	
 						actualplayer = null;
 						
-						Map<String, Integer> tree_kills = Leaderboards.getKillsLeaderboards();
+						Map<String, Integer> tree_kills = leaderboards.getKillsLeaderboards();
 						trimLeaderboards trim_kills = new trimLeaderboards();
 						ArrayList<String> temp_kills = trim_kills.getTrimCheck(tree_kills.toString());
 						if(!(temp_kills.get(1).equals(tempkills.get(1))))
@@ -118,7 +120,7 @@ public class TopPVPEntityListener implements Listener {
 							tempkills = temp_kills;
 						}
 						
-						Map<String, Double> tree_kdr = Leaderboards.getKDRLeaderboards();
+						Map<String, Double> tree_kdr = leaderboards.getKDRLeaderboards();
 						trimLeaderboards trim_kdr = new trimLeaderboards();
 						ArrayList<String> temp_kdr = trim_kdr.getTrimCheck(tree_kdr.toString());
 						if(!(temp_kdr.get(1).equals(tempkdr.get(1))))
@@ -127,7 +129,7 @@ public class TopPVPEntityListener implements Listener {
 							tempkdr = temp_kdr;
 						}
 						
-						Map<String, Integer> tree_deaths = Leaderboards.getDeathsLeaderboards();
+						Map<String, Integer> tree_deaths = leaderboards.getDeathsLeaderboards();
 						trimLeaderboards trim_deaths = new trimLeaderboards();
 						ArrayList<String> temp_deaths = trim_deaths.getTrimCheck(tree_deaths.toString());
 						if(!(temp_deaths.get(1).equals(tempdeaths.get(1))))
