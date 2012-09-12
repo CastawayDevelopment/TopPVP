@@ -215,22 +215,32 @@ public class Basic implements CommandExecutor {
 			
 			
 			sender.sendMessage(ChatColor.BLACK + "===========" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Commands" + purple + "]" + ChatColor.BLACK + "===========");
-			if(player.hasPermission(Nodes.Permissions.Kills.getString()))
+			if(player.hasPermission(Nodes.Permissions.Kills.getString()));
+		}else if(player.hasPermission(Nodes.Permissions.General.getString())){
 				sender.sendMessage(gold + "/kills " + aqua + "- " + gray + "View your kills.");
-			if(player.hasPermission(Nodes.Permissions.Deaths.getString()))
+			if(player.hasPermission(Nodes.Permissions.Deaths.getString()));
+		}else if(player.hasPermission(Nodes.Permissions.General.getString())){
 				sender.sendMessage(gold + "/deaths " + aqua + "- " + gray + "View your deaths.");
-			if(player.hasPermission(Nodes.Permissions.KDR.getString()))
+			if(player.hasPermission(Nodes.Permissions.KDR.getString()));
+		}else if(player.hasPermission(Nodes.Permissions.General.getString())){
 				sender.sendMessage(gold + "/kdr" + aqua + " - " + gray + "View your Kill/Death ratio.");
-			if(player.hasPermission(Nodes.Permissions.ResetKills.getString()))
+			if(player.hasPermission(Nodes.Permissions.ResetKills.getString()));
 				sender.sendMessage(gold + "/resetkills <player>" + aqua + " - " + gray +  "Reset a player's kills.");
-			if(player.hasPermission(Nodes.Permissions.REsetDeaths.getString()))
+			if(player.hasPermission(Nodes.Permissions.REsetDeaths.getString()));
 				sender.sendMessage(gold + "/resetdeaths <player>" + aqua + " - " + gray + "Reset a players's deaths.");
-			if(player.hasPermission(Nodes.Permissions.SetKills.getString()))
+			if(player.hasPermission(Nodes.Permissions.SetKills.getString()));
 				sender.sendMessage(gold + "/setkills <player> <amount>" + aqua + " - " + gray + "Set a player's kills.");
-			if(player.hasPermission(Nodes.Permissions.SetDeaths.getString()))
+			if(player.hasPermission(Nodes.Permissions.SetDeaths.getString()));
 				sender.sendMessage(gold + "/setdeaths <player> <amount>" + aqua + " - " + gray + "Set a player's deaths.");
-			if(player.hasPermission(Nodes.Permissions.KillsLeaderboards.getString()))
+			if(player.hasPermission(Nodes.Permissions.KillsLeaderboards.getString()));
+		}else if(player.hasPermission(Nodes.Permissions.General.getString())){
 				sender.sendMessage(gold + "/leadkills" + aqua + " - " + gray + "View Kills Leaderboard.");
+				if(player.hasPermission(Nodes.Permissions.DeathsLeaderboards.getString()));
+		}else if(player.hasPermission(Nodes.Permissions.General.getString())){
+				sender.sendMessage(gold + "/leaddeaths" + aqua + " - " + gray + "View Deaths Leaderboard.");
+				if(player.hasPermission(Nodes.Permissions.KDRLeaderboards.getString()));
+		}else if(player.hasPermission(Nodes.Permissions.General.getString())){
+				sender.sendMessage(gold + "/leadkdr" + aqua + " - " + gray + "View KDR Leaderboard.");
 			sender.sendMessage(gold + "/pvphelp" + aqua +  " - " + gray + "Shows this dialogue.");
 			sender.sendMessage(ChatColor.BLACK + "===========" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Commands" + purple + "]" + ChatColor.BLACK + "===========");
 			return true;

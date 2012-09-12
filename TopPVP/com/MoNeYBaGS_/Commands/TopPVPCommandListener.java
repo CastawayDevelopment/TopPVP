@@ -19,6 +19,16 @@ public class TopPVPCommandListener implements CommandExecutor {
 
 	private TopPVP plugin;
 	private Leaderboards leaderboards;
+	
+	ChatColor black = ChatColor.BLACK;
+	ChatColor dgray = ChatColor.DARK_GRAY;
+	ChatColor purple = ChatColor.DARK_PURPLE;
+	ChatColor aqua = ChatColor.AQUA;
+	ChatColor daqua = ChatColor.DARK_AQUA;
+	ChatColor dred = ChatColor.DARK_RED;
+	ChatColor red = ChatColor.RED;
+	ChatColor gold = ChatColor.GOLD;
+	ChatColor gray = ChatColor.GRAY;
 
 	public TopPVPCommandListener(TopPVP _plugin, Leaderboards _leaderboards)
 	{
@@ -336,11 +346,18 @@ public class TopPVPCommandListener implements CommandExecutor {
 						trimLeaderboards trim = new trimLeaderboards();
 						ArrayList<String> top = trim.getTrimmed(tree.toString());
 
-						sender.sendMessage(ChatColor.RED + "**************PVP Leaderboard**************");
-						sender.sendMessage(ChatColor.GREEN + "1. " + top.get(0));
+						sender.sendMessage(ChatColor.BLACK + "=============" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "=============");
+						sender.sendMessage("");
+						
+						
+						sender.sendMessage(ChatColor.AQUA + "1. " + top.get(0));
 						for(int i = 1; i < top.size() && i <= Nodes.Paths.LeaderboardsAmount.getInt(); i++)
-							sender.sendMessage(ChatColor.GOLD + Integer.toString(i+1) + ". " + top.get(i));
-						sender.sendMessage(ChatColor.RED + "*********************************************");			
+							sender.sendMessage(ChatColor.DARK_AQUA + Integer.toString(i+1) + ". " + top.get(i));
+						
+						
+						sender.sendMessage("");	
+						sender.sendMessage(ChatColor.BLACK + "=============" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "=============");
+							
 						return true;
 					}
 					else
@@ -355,10 +372,15 @@ public class TopPVPCommandListener implements CommandExecutor {
 					trimLeaderboards trim = new trimLeaderboards();
 					ArrayList<String> top = trim.getTrimmed(tree.toString());
 
-					sender.sendMessage("**************PVP Leaderboard**************");
+					sender.sendMessage(ChatColor.BLACK + "=============" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "=============");
+					sender.sendMessage("");
+					
 					for(int i = 0; i < top.size() && i <= Nodes.Paths.LeaderboardsAmount.getInt(); i++)
 						sender.sendMessage(Integer.toString(i+1) + ". " + top.get(i));
-					sender.sendMessage("*********************************************");	
+					
+					sender.sendMessage("");	
+					sender.sendMessage(ChatColor.BLACK + "=============" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "=============");
+					
 					return true;
 				}
 			}

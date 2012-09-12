@@ -60,13 +60,16 @@ public class Lead_Commands implements CommandExecutor{
 						trimLeaderboards trim = new trimLeaderboards();
 						ArrayList<String> top = trim.getTrimmed(tree.toString());
 
-						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
+						player.sendMessage(ChatColor.BLACK + "=============" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Kills Leaderboard" + purple + "]" + ChatColor.BLACK + "=============");
 						player.sendMessage("");
 						
-						sender.sendMessage(ChatColor.GREEN + "1. " + top.get(0) + " Kills");
+						sender.sendMessage(ChatColor.AQUA + "1. " + top.get(0) + " Kills");
 						for(int i = 1; i < top.size() && i <= Nodes.Paths.LeaderboardsAmount.getInt(); i++)
-							sender.sendMessage(ChatColor.GOLD + Integer.toString(i+1) + ". " + top.get(i) + " Kills");
-						sender.sendMessage(ChatColor.RED + "**************************************************");			
+							sender.sendMessage(ChatColor.DARK_AQUA + Integer.toString(i+1) + ". " + top.get(i) + " Kills");
+						
+						sender.sendMessage("");	
+						sender.sendMessage(ChatColor.BLACK + "=============" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Kills Leaderboard" + purple + "]" + ChatColor.BLACK + "=============");
+							
 						return true;
 					}
 					else
@@ -81,10 +84,15 @@ public class Lead_Commands implements CommandExecutor{
 					trimLeaderboards trim = new trimLeaderboards();
 					ArrayList<String> top = trim.getTrimmed(tree.toString());
 
-					sender.sendMessage("**************PVP Kills Leaderboard**************");
+					sender.sendMessage(ChatColor.BLACK + "=============" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Leaderboard" + purple + "]" + ChatColor.BLACK + "=============");
+					sender.sendMessage("");
+					
 					for(int i = 0; i < top.size() && i <= Nodes.Paths.LeaderboardsAmount.getInt(); i++)
-						sender.sendMessage(Integer.toString(i+1) + ". " + top.get(i) + " Kills");
-					sender.sendMessage("**************************************************");	
+						sender.sendMessage(daqua + Integer.toString(i+1) + ". " + top.get(i) + " Kills");
+					
+					sender.sendMessage("");
+					sender.sendMessage(ChatColor.BLACK + "=============" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Leaderboard" + purple + "]" + ChatColor.BLACK + "=============");
+					
 					return true;
 				}
 			}
@@ -106,11 +114,17 @@ public class Lead_Commands implements CommandExecutor{
 						trimLeaderboards trim = new trimLeaderboards();
 						ArrayList<String> top = trim.getTrimmed(tree.toString());
 
-						sender.sendMessage(ChatColor.RED + "**************PVP KDR Leaderboard**************");
-						sender.sendMessage(ChatColor.GREEN + "1. " + top.get(0));
+						player.sendMessage(ChatColor.BLACK + "=============" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP KDR Leaderboard" + purple + "]" + ChatColor.BLACK + "=============");
+						player.sendMessage("");
+						
+						sender.sendMessage(ChatColor.AQUA + "1. " + top.get(0));
 						for(int i = 1; i < top.size() && i <= Nodes.Paths.LeaderboardsAmount.getInt(); i++)
-							sender.sendMessage(ChatColor.GOLD + Integer.toString(i+1) + ". " + top.get(i));
-						sender.sendMessage(ChatColor.RED + "**************************************************");			
+							sender.sendMessage(ChatColor.DARK_AQUA + Integer.toString(i+1) + ". " + top.get(i));
+						
+						sender.sendMessage("");
+						player.sendMessage(ChatColor.BLACK + "=============" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP KDR Leaderboard" + purple + "]" + ChatColor.BLACK + "=============");
+						
+						
 						return true;
 					}
 					else
@@ -125,10 +139,15 @@ public class Lead_Commands implements CommandExecutor{
 					trimLeaderboards trim = new trimLeaderboards();
 					ArrayList<String> top = trim.getTrimmed(tree.toString());
 
-					sender.sendMessage("**************PVP KDR Leaderboard**************");
+					sender.sendMessage(ChatColor.BLACK + "=============" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Leaderboard" + purple + "]" + ChatColor.BLACK + "=============");
+					sender.sendMessage("");
+					
 					for(int i = 0; i < top.size() && i <= Nodes.Paths.LeaderboardsAmount.getInt(); i++)
 						sender.sendMessage(Integer.toString(i+1) + ". " + top.get(i));
-					sender.sendMessage("**************************************************");	
+					
+					sender.sendMessage(ChatColor.BLACK + "=============" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Leaderboard" + purple + "]" + ChatColor.BLACK + "=============");
+					sender.sendMessage("");
+					
 					return true;
 				}
 			}
@@ -150,11 +169,17 @@ public class Lead_Commands implements CommandExecutor{
 						trimLeaderboards trim = new trimLeaderboards();
 						ArrayList<String> top = trim.getTrimmed(tree.toString());
 
-						sender.sendMessage(ChatColor.RED + "**************PVP Deaths Leaderboard**************");
-						sender.sendMessage(ChatColor.RED + "1. " + top.get(0) + " Deaths");
+						player.sendMessage(ChatColor.BLACK + "=============" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Deaths Leaderboard" + purple + "]" + ChatColor.BLACK + "=============");
+						player.sendMessage("");
+						
+						sender.sendMessage(ChatColor.DARK_RED + "1. " + top.get(0) + " Deaths");
 						for(int i = 1; i < top.size() && i <= Nodes.Paths.LeaderboardsAmount.getInt(); i++)
-							sender.sendMessage(ChatColor.GOLD + Integer.toString(i+1) + ". " + top.get(i) + " Deaths");
-						sender.sendMessage(ChatColor.RED + "*****************************************************");			
+							sender.sendMessage(ChatColor.RED + Integer.toString(i+1) + ". " + top.get(i) + " Deaths");
+
+						player.sendMessage("");
+						player.sendMessage(ChatColor.BLACK + "=============" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Deaths Leaderboard" + purple + "]" + ChatColor.BLACK + "=============");
+						
+						
 						return true;
 					}
 					else
@@ -169,10 +194,15 @@ public class Lead_Commands implements CommandExecutor{
 					trimLeaderboards trim = new trimLeaderboards();
 					ArrayList<String> top = trim.getTrimmed(tree.toString());
 
-					sender.sendMessage("**************PVP Deaths Leaderboard**************");
+					sender.sendMessage(ChatColor.BLACK + "=============" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Deaths Leaderboard" + purple + "]" + ChatColor.BLACK + "=============");
+					sender.sendMessage("");
+					
 					for(int i = 0; i < top.size() && i <= Nodes.Paths.LeaderboardsAmount.getInt(); i++)
 						sender.sendMessage(Integer.toString(i+1) + ". " + top.get(i) + " Deaths");
-					sender.sendMessage("*****************************************************");	
+
+					sender.sendMessage("");	
+					sender.sendMessage(ChatColor.BLACK + "=============" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Deaths Leaderboard" + purple + "]" + ChatColor.BLACK + "=============");
+					
 					return true;
 				}
 			}
