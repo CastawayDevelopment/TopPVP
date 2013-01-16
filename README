@@ -4,10 +4,12 @@ Version - 0.6
 
 TODO:
 	- Vault Integration 
-	- /setkills /setdeaths
-	- More admin commands
-	- Configs: To allow all deaths or just pvp deaths to be counted. 
+	- /stats <playernam>
+	- Less lag
 	- Switch to Sql and use Patpeter Library.
+        - Fix issues
+        - Update
+        - Yeah
 
 ISSUES:
 	- Slow. 
