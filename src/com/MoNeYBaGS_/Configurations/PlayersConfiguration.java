@@ -1,54 +1,76 @@
 package com.MoNeYBaGS_.Configurations;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.java.JavaPlugin;
+import com.MoNeYBaGS_.Database;
+import org.apache.commons.dbutils.DbUtils;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.MapListHandler;
 
 import com.MoNeYBaGS_.TopPVP;
 
 
 public class PlayersConfiguration {
 
-	private File configFile = new File("plugins/TopPVP/players.yml");
-	private FileConfiguration playersCustomConfig = YamlConfiguration.loadConfiguration(configFile);
 	private TopPVP plugin;
-	
+	public List databaseCache;
+
 	public PlayersConfiguration(TopPVP instance)
 	{
 		this.plugin = instance;
 		Nodes.load(new File(plugin.getDataFolder() + "/config.yml"));
 	}
-	
-	public FileConfiguration getConfig()
+
+	public List getConfig()
 	{
-		if (playersCustomConfig == null) {
+		if (databaseCache == null) {
 			reloadPlayersConfig();
 		}
-		return playersCustomConfig;
+		return databaseCache;
 	}
-	
-	public void savePlayersConfig() {
-	    if (playersCustomConfig == null || configFile == null) {
-	    	System.out.println("NULL");
-	    	return;
-	    }
-	    try {
-	        playersCustomConfig.save(configFile);
-	    } catch (IOException ex) {
-	        Logger.getLogger(JavaPlugin.class.getName()).log(Level.SEVERE, "Could not save config to " + configFile, ex);
-	    }
-	}
-	
+
 	public void reloadPlayersConfig()
 	{
-		if (configFile == null) {
-			configFile = new File("plugins/TopPVP/players.yml");
+		try {
+			Database database = plugin.database;
+			QueryRunner runner = new QueryRunner();
+			Connection connection = database.getConnection();
+
+			Logger logger = plugin.getLogger();
+			List mapList = (List) runner.query(connection, "SELECT * FROM "+database.tableName, new MapListHandler());
+
+			databaseCache = mapList;
+		} catch (SQLException exc) {
+			System.out.println("Cannot fetch rows from DB");
 		}
-		playersCustomConfig = YamlConfiguration.loadConfiguration(configFile);
+	}
+
+	public void updatePlayer(String query) {
+		try {
+			Connection connection = plugin.database.getConnection();
+			QueryRunner runner = new QueryRunner();
+			runner.update(connection, query);
+
+			DbUtils.close(connection);
+		} catch (SQLException exc) {
+			System.out.println("Cannot update SQL record");
+		}
+	}
+
+	public Map getPlayer(String name) {
+		for (int i = 0; i < databaseCache.size(); i++) {
+			Map player = (Map)databaseCache.get(i);
+
+			if (name.equals(player.get("username"))) {
+				return player;
+			}
+		}
+
+		return null;
 	}
 }

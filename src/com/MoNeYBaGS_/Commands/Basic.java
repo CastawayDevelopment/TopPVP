@@ -10,6 +10,8 @@ import com.MoNeYBaGS_.TopPVP;
 import com.MoNeYBaGS_.Configurations.Nodes;
 import com.MoNeYBaGS_.Leaderboards.Leaderboards;
 
+import java.util.Map;
+
 
 public class Basic implements CommandExecutor {
 
@@ -45,8 +47,10 @@ public class Basic implements CommandExecutor {
 				if(player.hasPermission(Nodes.Permissions.General.getString()) || 
 						player.hasPermission(Nodes.Permissions.Kills.getString()))
 				{
-					if(plugin.getPlayersConfig().getInt("players." + 
-							player.getName() + ".Kills", 0) == 0)
+
+					Map dbPlayer = plugin.config.getPlayer(player.getName());
+					Integer kills = (Integer)dbPlayer.get("kills");
+					if(kills == 0)
 					{
 						
 						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
@@ -60,8 +64,7 @@ public class Basic implements CommandExecutor {
 						
 						return true;
 					}
-					else if(plugin.getPlayersConfig().getInt("players." + 
-							player.getName() + ".Kills", 0) == 1)
+					else if(kills == 1)
 					{
 						
 						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
@@ -85,8 +88,7 @@ public class Basic implements CommandExecutor {
 						player.sendMessage("");
 						
 						player.sendMessage(ChatColor.DARK_AQUA + Nodes.Paths.KillsReturn1.getString() + aqua +
-								plugin.getPlayersConfig().getInt("players." + 
-										player.getName() + ".Kills", 0) + daqua + Nodes.Paths.KillsReturn2.getString());
+ kills + daqua + Nodes.Paths.KillsReturn2.getString());
 						
 						player.sendMessage("");
 						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
@@ -111,8 +113,10 @@ public class Basic implements CommandExecutor {
 				if(player.hasPermission(Nodes.Permissions.General.getString()) || 
 						player.hasPermission(Nodes.Permissions.Deaths.getString()))
 				{
-					if(plugin.getPlayersConfig().getInt("players." +
-							player.getName() + ".Deaths", 0) == 0)
+					Map dbPlayer = plugin.config.getPlayer(player.getName());
+					Integer deaths = (Integer)dbPlayer.get("deaths");
+
+					if(deaths == 0)
 					{
 						
 						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
@@ -124,8 +128,7 @@ public class Basic implements CommandExecutor {
 						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
 					
 					}
-					else if(plugin.getPlayersConfig().getInt("players." +
-							player.getName() + ".Deaths", 0) == 1)
+					else if(deaths == 1)
 					{
 						
 						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
@@ -144,8 +147,7 @@ public class Basic implements CommandExecutor {
 						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
 						player.sendMessage("");
 						player.sendMessage(ChatColor.DARK_AQUA + Nodes.Paths.DeathsReturn1.getString() + aqua +
-								plugin.getPlayersConfig().getInt("players." +
-										player.getName() + ".Deaths", 0) + daqua + Nodes.Paths.DeathsReturn2.getString());
+								deaths + daqua + Nodes.Paths.DeathsReturn2.getString());
 						player.sendMessage("");
 						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
 					
@@ -171,10 +173,10 @@ public class Basic implements CommandExecutor {
 				if(player.hasPermission(Nodes.Permissions.General.getString()) || 
 						player.hasPermission(Nodes.Permissions.Deaths.getString()))
 				{
-					int deaths = plugin.getPlayersConfig().getInt("players." + 
-							player.getName() + ".Deaths");
-					int kills = plugin.getPlayersConfig().getInt("players." + 
-							player.getName() + ".Kills");
+					Map dbPlayer = plugin.config.getPlayer(player.getName());
+					int deaths = (Integer)dbPlayer.get("deaths");
+					int kills = (Integer)dbPlayer.get("kills");
+
 					int gcd = GCD(kills, deaths);
 					if(!(gcd == 0))
 					{

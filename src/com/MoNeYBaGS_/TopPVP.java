@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.MoNeYBaGS_.Configurations.PlayersConfiguration;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -13,11 +14,9 @@ import com.MoNeYBaGS_.Commands.Admin_Commands;
 import com.MoNeYBaGS_.Commands.Basic;
 import com.MoNeYBaGS_.Commands.Lead_Commands;
 import com.MoNeYBaGS_.Configurations.Files;
-import com.MoNeYBaGS_.Configurations.PlayersConfiguration;
 import com.MoNeYBaGS_.Leaderboards.Leaderboards;
 import com.MoNeYBaGS_.Listeners.TopPVPEntityListener;
 import com.MoNeYBaGS_.Listeners.TopPVPPlayerListener;
-
 
 public class TopPVP extends JavaPlugin 
 {
@@ -25,8 +24,9 @@ public class TopPVP extends JavaPlugin
 	private Leaderboards lead;
 	private Basic basic;
 	private Lead_Commands leaderboards;
-	private PlayersConfiguration config;
+	public PlayersConfiguration config;
 	private Admin_Commands admin;
+	public Database database;
 
 	//Strings
 	public String pvp = "[TopPVP]: ";
@@ -44,21 +44,24 @@ public class TopPVP extends JavaPlugin
 
 	public void onEnable() 
 	{
+		database = new Database();
+		database.topPVP = this;
+		database.connect();
+
 		if(!this.getDataFolder().exists())
 			this.getDataFolder().mkdir();
+
 		config = new PlayersConfiguration(this);
-		config.getConfig().options().copyHeader(true);
 		config.getConfig();
+
 		getConfig();
+
 		log.info(pvp + " TopPVP Enabled!");
+
 		if(!(getConfig().getInt("Version") == 9))
 		{
 			saveConfig(); 
 			ArrayList<String> files = new ArrayList<String>();
-			if(!new File("plugins/TopPVP/players.conf").exists())
-			{
-				files.add("players.conf");
-			}
 			if(!new File("plugins/TopPVP/config.yml").exists())
 			{
 				files.add("config.yml");
@@ -99,20 +102,4 @@ public class TopPVP extends JavaPlugin
 		getCommand("setdeaths").setExecutor(admin);
 		getCommand("pvphelp").setExecutor(basic);
 	}
-
-	public void reloadPlayersConfig()
-	{
-		config.reloadPlayersConfig();
-	}
-
-	public FileConfiguration getPlayersConfig()
-	{
-		return config.getConfig();
-	}
-
-	public void savePlayersConfig() 
-	{
-		config.savePlayersConfig();
-	}
-
 }

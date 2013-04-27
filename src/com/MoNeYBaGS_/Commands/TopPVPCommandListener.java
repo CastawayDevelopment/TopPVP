@@ -51,14 +51,15 @@ public class TopPVPCommandListener implements CommandExecutor {
 				if(player.hasPermission(Nodes.Permissions.General.getString()) || 
 						player.hasPermission(Nodes.Permissions.Kills.getString()))
 				{
-					if(plugin.getPlayersConfig().getInt("players." + 
-							player.getName() + ".Kills", 0) == 0)
+					Map dbPlayer = plugin.config.getPlayer(player.getName());
+					int kills = (Integer)dbPlayer.get("kills");
+
+					if(kills == 0)
 					{
 						player.sendMessage(ChatColor.GREEN + Nodes.Paths.KillsReturnNone.getString());
 						return true;
 					}
-					else if(plugin.getPlayersConfig().getInt("players." + 
-							player.getName() + ".Kills", 0) == 1)
+					else if(kills == 1)
 					{
 						player.sendMessage(Nodes.Paths.KillsReturnOnce.getString());
 						return true;
@@ -66,8 +67,7 @@ public class TopPVPCommandListener implements CommandExecutor {
 					else
 					{
 						player.sendMessage(ChatColor.RED + Nodes.Paths.KillsReturn1.getString() + 
-								plugin.getPlayersConfig().getInt("players." + 
-										player.getName() + ".Kills", 0) + Nodes.Paths.KillsReturn2.getString());
+								kills + Nodes.Paths.KillsReturn2.getString());
 						return true;
 					}
 				}
@@ -88,21 +88,21 @@ public class TopPVPCommandListener implements CommandExecutor {
 				if(player.hasPermission(Nodes.Permissions.General.getString()) || 
 						player.hasPermission(Nodes.Permissions.Deaths.getString()))
 				{
-					if(plugin.getPlayersConfig().getInt("players." +
-							player.getName() + ".Deaths", 0) == 0)
+					Map dbPlayer = plugin.config.getPlayer(player.getName());
+					int deaths = (Integer)dbPlayer.get("deaths");
+
+					if(deaths == 0)
 					{
 						player.sendMessage(ChatColor.RED + Nodes.Paths.DeathsReturnNone.getString());
 					}
-					else if(plugin.getPlayersConfig().getInt("players." +
-							player.getName() + ".Deaths", 0) == 1)
+					else if(deaths == 1)
 					{
 						player.sendMessage(ChatColor.RED + Nodes.Paths.DeathsReturnOnce.getString());
 					}
 					else
 					{
 						player.sendMessage(ChatColor.RED + Nodes.Paths.DeathsReturn1.getString() + 
-								plugin.getPlayersConfig().getInt("players." +
-										player.getName() + ".Deaths", 0) + Nodes.Paths.DeathsReturn2.getString());
+								deaths + Nodes.Paths.DeathsReturn2.getString());
 					}
 					return true;
 				}
@@ -125,10 +125,10 @@ public class TopPVPCommandListener implements CommandExecutor {
 				if(player.hasPermission(Nodes.Permissions.General.getString()) || 
 						player.hasPermission(Nodes.Permissions.Deaths.getString()))
 				{
-					int deaths = plugin.getPlayersConfig().getInt("players." + 
-							player.getName() + ".Deaths");
-					int kills = plugin.getPlayersConfig().getInt("players." + 
-							player.getName() + ".Kills");
+					Map dbPlayer = plugin.config.getPlayer(player.getName());
+					int deaths = (Integer)dbPlayer.get("deaths");
+					int kills = (Integer)dbPlayer.get("kills");
+
 					int gcd = GCD(kills, deaths);
 					if(!(gcd == 0))
 					{
@@ -167,9 +167,11 @@ public class TopPVPCommandListener implements CommandExecutor {
 					if(player.hasPermission(Nodes.Permissions.REsetDeaths.getString()))
 					{
 						player.sendMessage(ChatColor.GREEN + args[0] + Nodes.Paths.ResetDeaths.getString());
-						plugin.reloadPlayersConfig();
-						plugin.getPlayersConfig().set("players." + args[0] + ".Deaths", 0);
-						plugin.savePlayersConfig();
+
+						String query = "UPDATE "+plugin.database.tableName+" SET deaths='0' WHERE username='"+player.getName()+"'";
+						plugin.config.updatePlayer(query);
+						plugin.config.reloadPlayersConfig();
+
 						return true;
 					}
 					else
@@ -183,9 +185,11 @@ public class TopPVPCommandListener implements CommandExecutor {
 					if(player.hasPermission(Nodes.Permissions.REsetDeaths.getString()))
 					{
 						player.sendMessage(ChatColor.GREEN + Nodes.Paths.ResetDeathsYou.getString());
-						plugin.reloadPlayersConfig();
-						plugin.getPlayersConfig().set("players." + player.getName() + ".Deaths", 0);
-						plugin.savePlayersConfig();
+
+						String query = "UPDATE "+plugin.database.tableName+" SET deaths='0' WHERE username='"+player.getName()+"'";
+						plugin.config.updatePlayer(query);
+						plugin.config.reloadPlayersConfig();
+
 						return true;
 					}
 					else
@@ -209,9 +213,11 @@ public class TopPVPCommandListener implements CommandExecutor {
 					if(player.hasPermission(Nodes.Permissions.ResetKills.getString()))
 					{
 						player.sendMessage(ChatColor.GREEN + args[0] + Nodes.Paths.ResetKills.getString());
-						plugin.reloadPlayersConfig();
-						plugin.getPlayersConfig().set("players." + args[0] + ".Kills", 0);
-						plugin.savePlayersConfig();
+
+						String query = "UPDATE "+plugin.database.tableName+" SET kills='0' WHERE username='"+player.getName()+"'";
+						plugin.config.updatePlayer(query);
+						plugin.config.reloadPlayersConfig();
+
 						return true;
 					}
 					else
@@ -225,9 +231,11 @@ public class TopPVPCommandListener implements CommandExecutor {
 					if(player.hasPermission(Nodes.Permissions.ResetKills.getString()))
 					{
 						player.sendMessage(ChatColor.GREEN + Nodes.Paths.ResetKillsYou.getString());
-						plugin.reloadPlayersConfig();
-						plugin.getPlayersConfig().set("players." + player.getName() + ".Kills", 0);
-						plugin.savePlayersConfig();
+
+						String query = "UPDATE "+plugin.database.tableName+" SET kills='0' WHERE username='"+player.getName()+"'";
+						plugin.config.updatePlayer(query);
+						plugin.config.reloadPlayersConfig();
+
 						return true;
 					}
 					else
@@ -251,9 +259,9 @@ public class TopPVPCommandListener implements CommandExecutor {
 					if(player.hasPermission(Nodes.Permissions.SetKills.getString()))
 					{
 						player.sendMessage(ChatColor.GREEN + "Kills for " + args[0] + " have been set to " + args[1]);
-						plugin.reloadPlayersConfig();
-						plugin.getPlayersConfig().set("players." + args[0] + ".Kills", Integer.parseInt(args[1].toString()));
-						plugin.savePlayersConfig();
+						String query = "UPDATE "+plugin.database.tableName+" SET kills='"+Integer.parseInt(args[1].toString())+"' WHERE username='"+player.getName()+"'";
+						plugin.config.updatePlayer(query);
+						plugin.config.reloadPlayersConfig();
 						return true;
 					}
 					else
@@ -285,9 +293,9 @@ public class TopPVPCommandListener implements CommandExecutor {
 					if(player.hasPermission(Nodes.Permissions.SetDeaths.getString()))
 					{
 						player.sendMessage(ChatColor.GREEN + "Deaths for " + args[0] + " have been set to " + args[1]);
-						plugin.reloadPlayersConfig();
-						plugin.getPlayersConfig().set("players." + args[0] + ".Deaths", args[1]);
-						plugin.savePlayersConfig();
+						String query = "UPDATE "+plugin.database.tableName+" SET deaths='"+Integer.parseInt(args[1].toString())+"' WHERE username='"+player.getName()+"'";
+						plugin.config.updatePlayer(query);
+						plugin.config.reloadPlayersConfig();
 						return true;
 					}
 					else
