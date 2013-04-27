@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Map;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,30 +29,18 @@ public class TopPVPPlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event){
 		plugin.reloadConfig();
-		plugin.reloadPlayersConfig();
+		plugin.config.reloadPlayersConfig();
+
 		player = event.getPlayer();
-		plugin.reloadPlayersConfig();
-		String playername = plugin.getPlayersConfig().getString("players." + player.getName());
-		if(playername == null || playername == "")
+
+		Map dbPlayer = plugin.config.getPlayer(player.getName());
+		if(dbPlayer == null)
 		{
 			//create player
 			plugin.log.info(plugin.pvp + plugin.cre + player.getName());
-			plugin.getPlayersConfig().set("players." + player.getName() + ".Kills", 0);
-			plugin.getPlayersConfig().set("players." + player.getName() + ".Deaths", 0);
-			plugin.savePlayersConfig();
-			try {
-				BufferedReader fin = new BufferedReader(new FileReader("plugins/TopPVP/players.conf"));
-				String temp = fin.readLine();
-				fin.close();
-				BufferedWriter fout = new BufferedWriter(new FileWriter("plugins/TopPVP/players.conf"));
-				fout.append(player.getName() + ";" + temp);
-				fout.close();
-			} catch (FileNotFoundException e) {
-				plugin.log.getLevel();
-				plugin.log.info(e.getMessage());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			String query = "INSERT INTO "+plugin.database.tableName+" (username, kills, deaths) VALUES ('"+player.getName()+"', 0, 0)";
+			plugin.config.updatePlayer(query);
+			plugin.config.reloadPlayersConfig();
 		}
 	}
 }

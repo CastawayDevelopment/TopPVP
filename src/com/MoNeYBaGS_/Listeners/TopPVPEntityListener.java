@@ -75,13 +75,14 @@ public class TopPVPEntityListener implements Listener {
 			if(victim.getKiller() instanceof Player)
 			{
 				plugin.log.info(plugin.pvp + "Player Killed: " + victim.getName() );
-				plugin.reloadPlayersConfig();
-				plugin.getPlayersConfig().set("players." + victim.getName() + ".Deaths", 
-						plugin.getPlayersConfig().getInt("players." + victim.getName() + ".Deaths", 0) + 1);
-				plugin.savePlayersConfig();
 
-				int deaths = plugin.getPlayersConfig().getInt("players." + victim.getName()
-						+ ".Deaths", 1);
+				plugin.config.reloadPlayersConfig();
+				Map dbPlayer = plugin.config.getPlayer(victim.getName());
+
+				int deaths = (Integer)dbPlayer.get("deaths");
+				String query = "UPDATE "+plugin.database.tableName+" SET deaths='"+ ++deaths + "' WHERE username='"+victim.getName()+"'";
+				plugin.config.updatePlayer(query);
+
 				if(deaths == 1)
 				{
 					victim.sendMessage(ChatColor.GREEN + Nodes.Paths.DeathsReturnOnce.getString());
@@ -94,14 +95,12 @@ public class TopPVPEntityListener implements Listener {
 				{
 					if(!(actualplayer == null))
 					{
-						plugin.reloadPlayersConfig();
-						plugin.getPlayersConfig().set("players." + actualplayer.getName() + ".Kills", 
-								plugin.getPlayersConfig().getInt("players." + actualplayer.getName() + ".Kills", 0) + 1);
+						Map dbActualPlayer = plugin.config.getPlayer(actualplayer.getName());
+						int kills = (Integer)dbActualPlayer.get("kills");
 
-						plugin.savePlayersConfig();
+						query = "UPDATE "+plugin.database.tableName+" SET kills='"+ ++kills + "' WHERE username='"+actualplayer.getName()+"'";
+						plugin.config.updatePlayer(query);
 
-						int kills = (plugin.getPlayersConfig().getInt("players." + actualplayer.getName()
-								+ ".Kills"));
 						if(kills == 1)
 						{
 							actualplayer.sendMessage(ChatColor.RED + Nodes.Paths.KillsReturnOnce.getString());
@@ -139,6 +138,8 @@ public class TopPVPEntityListener implements Listener {
 						}
 					}
 				}
+
+				plugin.config.reloadPlayersConfig();
 			}
 		}
 	}
