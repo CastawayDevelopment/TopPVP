@@ -4,11 +4,14 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.*;
+import java.util.logging.Logger;
 
+import com.MoNeYBaGS_.Database;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.bukkit.entity.Player;
 
 import com.MoNeYBaGS_.TopPVP;
@@ -31,7 +34,7 @@ public class Players {
 
 	private void refreshLeaderboards()
 	{
-		try {
+		/*try {
 			BufferedReader bin = new BufferedReader(new FileReader("plugins/TopPVP/players.conf"));
 			String all = bin.readLine();
 			playernames = returnPlayerArray(all);
@@ -42,16 +45,41 @@ public class Players {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}  */
+
+		plugin.config.reloadPlayersConfig();
+		List mapList = plugin.config.databaseCache;
+
+		playernames = new ArrayList<String>();
+		Map<String, Integer> kills = new HashMap<String, Integer>();
+		Map<String, Integer> deaths = new HashMap<String, Integer>();
+		Map<String, Double> kdr = new HashMap<String, Double>();
+		for (int i = 0; i < mapList.size(); i++) {
+			Map map = (Map) mapList.get(i);
+			String username = (String)map.get("username");
+			Integer killsInt = (Integer)map.get("kills");
+			Integer deathsInt = (Integer)map.get("deaths");
+			double ratio = 0;
+			if (deathsInt == 0)
+				ratio = killsInt;
+			else if (killsInt == 0)
+				ratio = 0;
+			else
+				ratio = Math.round(((killsInt) / (deathsInt) * 100.0D)) / 100.0D;
+
+			playernames.add((String)map.get("username"));
+			kills.put(username, killsInt);
+			deaths.put(username, deathsInt);
+			kdr.put(username, ratio);
 		}
+
+		deathslead = createDeathsLeaderboards(playernames, deaths);
+		killslead = createKillsLeaderboards(playernames, kills);
+		kdrlead = createKDRLeaderboards(playernames, kdr);
 	}
 	
-	private Map<String, Integer> createDeathsLeaderboards(ArrayList<String> player)
+	private Map<String, Integer> createDeathsLeaderboards(ArrayList<String> player, Map<String, Integer> unsorted)
 	{
-		Map<String, Integer> unsorted = new HashMap<String, Integer>();
-		for(int i = 0; i < player.size(); i++)
-		{
-			unsorted.put(player.get(i), plugin.getPlayersConfig().getInt("players." + player.get(i).toString() + ".Deaths"));
-		}
 		KillsComparator compare = new KillsComparator(unsorted);
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		TreeMap<String, Integer> sorted = new TreeMap(compare);
@@ -59,13 +87,8 @@ public class Players {
 		return sorted;
 	}
 
-	private Map<String, Integer> createKillsLeaderboards(ArrayList<String> player)
+	private Map<String, Integer> createKillsLeaderboards(ArrayList<String> player, Map<String, Integer> unsorted)
 	{
-		Map<String, Integer> unsorted = new HashMap<String, Integer>();
-		for(int i = 0; i < player.size(); i++)
-		{
-			unsorted.put(player.get(i), plugin.getPlayersConfig().getInt("players." + player.get(i).toString() + ".Kills"));
-		}
 		KillsComparator compare = new KillsComparator(unsorted);
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		TreeMap<String, Integer> sorted = new TreeMap(compare);
@@ -73,26 +96,8 @@ public class Players {
 		return sorted;
 	}
 
-	private Map<String, Double> createKDRLeaderboards(ArrayList<String> player)
+	private Map<String, Double> createKDRLeaderboards(ArrayList<String> player, Map<String, Double> unsorted)
 	{
-		Map<String, Double> unsorted = new HashMap<String, Double>();
-		for(int i = 0; i < player.size(); i++)
-		{
-			double ratio = 0.00;
-			double kills = (double)(plugin.getPlayersConfig().getInt("players." + player.get(i).toString() + ".Kills"));
-			double deaths = (double)(plugin.getPlayersConfig().getInt("players." + player.get(i).toString() + ".Deaths"));
-			if(deaths == 0)
-			{
-				ratio = kills;
-			}
-			else if(kills == 0)
-			{
-				ratio = 0.00;
-			}
-			else 
-				ratio = Math.round(((kills) / (deaths) * 100.0D)) / 100.0D;
-			unsorted.put(player.get(i), ratio);
-		}
 		KDRComparator compareDouble = new KDRComparator(unsorted);
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		TreeMap<String, Double> sorted = new TreeMap(compareDouble);

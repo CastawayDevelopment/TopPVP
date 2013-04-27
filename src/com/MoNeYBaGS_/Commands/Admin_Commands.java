@@ -56,11 +56,10 @@ public class Admin_Commands implements CommandExecutor{
 						
 						player.sendMessage("");
 						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
-						
-						plugin.reloadPlayersConfig();
-						plugin.getPlayersConfig().set("players." + args[0] + ".Deaths", 0);
-						plugin.savePlayersConfig();
-						
+
+						String query = "UPDATE "+plugin.database.tableName+" SET deaths='0' WHERE username='"+player.getName()+"'";
+						plugin.config.updatePlayer(query);
+						plugin.config.reloadPlayersConfig();
 
 						return true;
 					}
@@ -82,10 +81,11 @@ public class Admin_Commands implements CommandExecutor{
 						
 						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
 						player.sendMessage("");
-						
-						plugin.reloadPlayersConfig();
-						plugin.getPlayersConfig().set("players." + player.getName() + ".Deaths", 0);
-						plugin.savePlayersConfig();
+
+						String query = "UPDATE "+plugin.database.tableName+" SET deaths='0' WHERE username='"+player.getName()+"'";
+						plugin.config.updatePlayer(query);
+						plugin.config.reloadPlayersConfig();
+
 						return true;
 					}
 					else
@@ -116,10 +116,11 @@ public class Admin_Commands implements CommandExecutor{
 						
 						player.sendMessage("");
 						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
-						
-						plugin.reloadPlayersConfig();
-						plugin.getPlayersConfig().set("players." + args[0] + ".Kills", 0);
-						plugin.savePlayersConfig();
+
+						String query = "UPDATE "+plugin.database.tableName+" SET kills='0' WHERE username='"+player.getName()+"'";
+						plugin.config.updatePlayer(query);
+						plugin.config.reloadPlayersConfig();
+
 						return true;
 					}
 					else
@@ -139,10 +140,11 @@ public class Admin_Commands implements CommandExecutor{
 						
 						player.sendMessage("");
 						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
-						
-						plugin.reloadPlayersConfig();
-						plugin.getPlayersConfig().set("players." + player.getName() + ".Kills", 0);
-						plugin.savePlayersConfig();
+
+						String query = "UPDATE "+plugin.database.tableName+" SET kills='0' WHERE username='"+player.getName()+"'";
+						plugin.config.updatePlayer(query);
+						plugin.config.reloadPlayersConfig();
+
 						return true;
 					}
 					else
@@ -173,10 +175,11 @@ public class Admin_Commands implements CommandExecutor{
 						
 						player.sendMessage("");
 						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
-						
-						plugin.reloadPlayersConfig();
-						plugin.getPlayersConfig().set("players." + args[0] + ".Kills", Integer.parseInt(args[1].toString()));
-						plugin.savePlayersConfig();
+
+						String query = "UPDATE "+plugin.database.tableName+" SET kills='"+Integer.parseInt(args[1].toString())+"' WHERE username='"+player.getName()+"'";
+						plugin.config.updatePlayer(query);
+						plugin.config.reloadPlayersConfig();
+
 						return true;
 					}
 					else
@@ -223,10 +226,11 @@ public class Admin_Commands implements CommandExecutor{
 						
 						player.sendMessage("");
 						player.sendMessage(ChatColor.BLACK + "======" + ChatColor.DARK_PURPLE + "[" + ChatColor.DARK_GRAY + "TopPVP Message" + purple + "]" + ChatColor.BLACK + "======");
-						
-						plugin.reloadPlayersConfig();
-						plugin.getPlayersConfig().set("players." + args[0] + ".Deaths", args[1]);
-						plugin.savePlayersConfig();
+
+						String query = "UPDATE "+plugin.database.tableName+" SET deaths='"+Integer.parseInt(args[1].toString())+"' WHERE username='"+player.getName()+"'";
+						plugin.config.updatePlayer(query);
+						plugin.config.reloadPlayersConfig();
+
 						return true;
 					}
 					else
